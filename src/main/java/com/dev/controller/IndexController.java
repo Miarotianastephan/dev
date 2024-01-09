@@ -1,0 +1,17 @@
+package com.dev.controller;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@CrossOrigin(origins = "*")
+@RequestMapping("/api/main")
+public class IndexController {
+    
+    @GetMapping(path = "/hello" , produces = "application/json")
+    public String getHello(){
+        return "Hello All !!";
+    }
+}
