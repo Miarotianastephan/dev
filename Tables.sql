@@ -1,13 +1,10 @@
-create database voitureoccas;
-\c voitureoccas
-
 CREATE TABLE admins(
    idadmins SERIAL,
    nomadmin VARCHAR(50) ,
    prenomadmin VARCHAR(50) ,
    mail VARCHAR(50) ,
    nee DATE,
-   pwd text,
+   pwd VARCHAR(50) ,
    PRIMARY KEY(idadmins),
    UNIQUE(mail)
 );
@@ -18,15 +15,9 @@ CREATE TABLE users(
    prenomuser VARCHAR(50) ,
    mail VARCHAR(50) ,
    nee DATE,
-   pwd text,
+   pwd TEXT,
    PRIMARY KEY(iduser),
    UNIQUE(mail)
-);
-
-CREATE TABLE models(
-   idmodel SERIAL,
-   nommodel VARCHAR(50) ,
-   PRIMARY KEY(idmodel)
 );
 
 CREATE TABLE marque(
@@ -47,29 +38,26 @@ CREATE TABLE carburant(
    PRIMARY KEY(idcarburant)
 );
 
-CREATE TABLE voitureinfo(
-   idvoitureinfo SERIAL,
-   nomvoiture VARCHAR(50) ,
-   nombreplace INTEGER,
-   kilometrage DOUBLE PRECISION,
-   transmission INTEGER,
-   vitesse DOUBLE PRECISION,
-   iduser INTEGER NOT NULL,
-   idcarburant INTEGER NOT NULL,
-   idmarque INTEGER NOT NULL,
-   idmodel INTEGER NOT NULL,
-   PRIMARY KEY(idvoitureinfo),
-   FOREIGN KEY(iduser) REFERENCES users(iduser),
-   FOREIGN KEY(idcarburant) REFERENCES carburant(idcarburant),
-   FOREIGN KEY(idmarque) REFERENCES marque(idmarque),
-   FOREIGN KEY(idmodel) REFERENCES models(idmodel)
-);
-
 CREATE TABLE lieu(
    idlieu SERIAL,
    nomlieu VARCHAR(50) ,
    PRIMARY KEY(idlieu)
 );
+
+CREATE TABLE messages(
+   idmessages SERIAL,
+   nomsend VARCHAR(50) ,
+   prenomsend VARCHAR(50) ,
+   nomreceive VARCHAR(50) ,
+   prenomreceive VARCHAR(50) ,
+   contenu TEXT,
+   typemessage INTEGER,
+   datehmsg TIMESTAMP,
+   idusersend INTEGER NOT NULL,
+   iduserreceive INTEGER,
+   PRIMARY KEY(idmessages)
+);
+
 CREATE TABLE tokenuser(
    idtokenuser SERIAL,
    token TEXT,
@@ -113,12 +101,50 @@ CREATE TABLE motif(
    UNIQUE(codemotif)
 );
 
+CREATE TABLE regletaux(
+   idregletaux SERIAL,
+   coderegle VARCHAR(50) ,
+   nomregle VARCHAR(50) ,
+   tauxpourcent INTEGER,
+   PRIMARY KEY(idregletaux)
+);
+
+CREATE TABLE models(
+   idmodel SERIAL,
+   nommodel VARCHAR(50) ,
+   vitesse DOUBLE PRECISION NOT NULL,
+   transmission INTEGER NOT NULL,
+   datesortie DATE NOT NULL,
+   idmarque INTEGER NOT NULL,
+   PRIMARY KEY(idmodel),
+   FOREIGN KEY(idmarque) REFERENCES marque(idmarque)
+);
+
+CREATE TABLE voitureinfo(
+   idvoitureinfo SERIAL,
+   nomvoiture VARCHAR(50) ,
+   nombreplace INTEGER,
+   kilometrage DOUBLE PRECISION,
+   transmission INTEGER,
+   vitesse DOUBLE PRECISION,
+   iduser INTEGER NOT NULL,
+   idcarburant INTEGER NOT NULL,
+   idmarque INTEGER NOT NULL,
+   idmodel INTEGER NOT NULL,
+   PRIMARY KEY(idvoitureinfo),
+   FOREIGN KEY(iduser) REFERENCES users(iduser),
+   FOREIGN KEY(idcarburant) REFERENCES carburant(idcarburant),
+   FOREIGN KEY(idmarque) REFERENCES marque(idmarque),
+   FOREIGN KEY(idmodel) REFERENCES models(idmodel)
+);
+
 CREATE TABLE annonce(
    idannonce SERIAL,
    prixvente DOUBLE PRECISION,
    descriptions VARCHAR(200) ,
    statusvente INTEGER,
    etat INTEGER,
+   dateannonce TIMESTAMP,
    idlieu INTEGER NOT NULL,
    idvoitureinfo INTEGER NOT NULL,
    PRIMARY KEY(idannonce),
@@ -178,7 +204,7 @@ CREATE TABLE annoncerefus(
 
 CREATE TABLE debitersoldeuser(
    iddebit SERIAL,
-   montantd VARCHAR(50) ,
+   montantd DOUBLE PRECISION,
    dated TIMESTAMP,
    idmotif INTEGER NOT NULL,
    idsoldeuser INTEGER NOT NULL,
@@ -191,12 +217,12 @@ CREATE TABLE creditersoldesite(
    idcredit SERIAL,
    montantc DOUBLE PRECISION,
    datec TIMESTAMP,
-   iddebitersoldeuser INTEGER NOT NULL,
+   iddebit INTEGER NOT NULL,
    idmotif INTEGER NOT NULL,
    Idsoldesite INTEGER NOT NULL,
    PRIMARY KEY(idcredit),
-   UNIQUE(iddebitersoldeuser),
-   FOREIGN KEY(iddebitersoldeuser) REFERENCES debitersoldeuser(iddebitersoldeuser),
+   UNIQUE(iddebit),
+   FOREIGN KEY(iddebit) REFERENCES debitersoldeuser(iddebit),
    FOREIGN KEY(idmotif) REFERENCES motif(idmotif),
    FOREIGN KEY(Idsoldesite) REFERENCES soldesite(Idsoldesite)
 );
@@ -223,25 +249,17 @@ CREATE TABLE creditersoldeuser(
 );
 
 CREATE TABLE categorievoiture(
-   idcategorievoiture SERIAL,
    idcategorie INTEGER,
    idvoitureinfo INTEGER,
-   PRIMARY KEY(idcategorievoiture),
+   PRIMARY KEY(idcategorie, idvoitureinfo),
    FOREIGN KEY(idcategorie) REFERENCES categorie(idcategorie),
    FOREIGN KEY(idvoitureinfo) REFERENCES voitureinfo(idvoitureinfo)
 );
 
-
----------------------------NON RELATIONNEL
-CREATE TABLE messages(
-   idmessages SERIAL,
-   nomsend VARCHAR(50) ,
-   prenomsend VARCHAR(50) ,
-   nomreceive VARCHAR(50) ,
-   prenomreceive VARCHAR(50),
-   contenu TEXT,
-   typemessage INTEGER,
-   datehmsg TIMESTAMP,
-   idusersend INTEGER NOT NULL,
-   iduserreceive INTEGER NOT NULL
+CREATE TABLE modelcategorie(
+   idmodelcategorie serial primary key,
+   idmodel INTEGER,
+   idcategorie INTEGER,
+   FOREIGN KEY(idmodel) REFERENCES models(idmodel),
+   FOREIGN KEY(idcategorie) REFERENCES categorie(idcategorie)
 );

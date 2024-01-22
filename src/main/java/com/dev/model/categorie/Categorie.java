@@ -7,22 +7,22 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "categorie")
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Categorie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idcategorie")
-    int idCategorie;
-    @Column(name = "nomcategorie")
+    @Column(name = "idcategorie", nullable = false, columnDefinition = "INTEGER")
+    Integer idCategorie;
+
+    @Column(name = "nomcategorie", columnDefinition = "VARCHAR(50)", unique = true)
     String nomCategorie;
 }

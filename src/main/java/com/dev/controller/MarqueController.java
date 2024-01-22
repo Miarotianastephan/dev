@@ -1,61 +1,41 @@
 package com.dev.controller;
 
-import org.springframework.web.bind.annotation.RestController;
-
-import com.dev.model.marque.Marque;
-import com.dev.model.service.MarqueService;
-
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.dev.model.marque.Marque;
+import com.dev.service.MarqueService;
 
+import lombok.RequiredArgsConstructor;
+import java.util.*;
 
 @RestController
-@CrossOrigin(origins = "*")
-@RequestMapping("/api/main")
+@RequiredArgsConstructor
+@RequestMapping("/marque")
 public class MarqueController {
-    @Autowired
-    MarqueService marqueService;
+    private final MarqueService marqueService;
 
-    @GetMapping(path = "/allMarque", produces = "application/json")
+    @GetMapping(path = "/allarque", produces = "application/json")
     public List<Marque> getAllMarque() {
-        return marqueService.findAll();
+        return marqueService.findAllMarque();
     }
 
-    @GetMapping(path = "/findMarqueById/{idMarque}", produces = "application/json")
-    public Optional<Marque> findById(@PathVariable int idMarque) {
-        try {
-            return marqueService.findById(idMarque);
-        } catch (Exception e) {
-            throw e;
-        }
+    @PostMapping("/insertMarque")
+    public Marque insertMarque(@RequestBody Marque marque) {
+        return marqueService.save(marque);
     }
 
-    @PostMapping(path = "/findMarqueByNom")
-    public List<Object[]> findMarqueByNom(@RequestParam String nomMarque) {
-        System.out.println(nomMarque);
-        return marqueService.findByNom(nomMarque);
-    }
-    
-    @PostMapping(path = "/newMarque")
-    public Marque insertNewMarque(@RequestBody Marque marque) {
-        Marque nouvelleMarque = marqueService.save(marque);
-        return nouvelleMarque;
+    @PostMapping("/updateMarque")
+    public Marque updateMarque(@RequestParam int idMarque, @RequestParam String nomMarque) {
+        return marqueService.update(idMarque, nomMarque);
     }
 
-    @GetMapping("/path")
-    public String getMethodName() {
-        return "hello";
+    @PostMapping("/deleteMarque")
+    public void deleteMarque(@RequestParam int idMarque) {
+        marqueService.delete(idMarque);
     }
-    
 }
