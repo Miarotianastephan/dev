@@ -1,9 +1,9 @@
 package com.dev.models;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Entity;
 @Entity
 @Table(name="codecredit")
 public class CodecreditMi{
@@ -11,7 +11,7 @@ public class CodecreditMi{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int idcodecredit; 
     int code; 
-    int etats; 
+    int etats; //--etats:0 disponible / etats:1 plus disponible
     int idvaleurcredit; 
 
     public CodecreditMi(){ }

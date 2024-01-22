@@ -1,9 +1,12 @@
 package com.dev.models;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+import com.dev.exception.ExceptionCar;
+
+import jakarta.persistence.Entity;
 @Entity
 @Table(name="annonce")
 public class AnnonceMi{
@@ -37,7 +40,8 @@ public class AnnonceMi{
     public double getPrixvente(){
         return this.prixvente;
     }
-    public void setPrixvente(double prixvente){
+    public void setPrixvente(double prixvente)throws Exception{
+        if(prixvente<=0){ throw new ExceptionCar(" prix de vente inferieur ou egale à 0 "); }
         this.prixvente=prixvente;
     }
     public String getDescriptions(){

@@ -2,6 +2,11 @@
 -- idannonce | prixvente | descriptions | statusvente | etat | dateannonce | idlieu | nomlieu | idvoitureinfo | nomvoiture | nombreplace | kilometrage | transmission | vitesse | iduser | nomuser | prenomuser | idcarburant | nomcarburant | idmarque | nommarque | idmodel | nommodel | idcategorie | nomcategorie | datevente | datemodifstatus
 ---statusvente : 0 : vendu /10 : non vendu
 ---etat : 0:encour demande / 10 :accepter / 20: refuser
+
+
+-- -- Pour changer le type d'une colonne dans une table
+-- ALTER TABLE annoncephoto
+-- ALTER COLUMN photo TYPE text;
 create or replace view annoncedetail_v as
    select a.idannonce,
          a.prixvente,a.descriptions,a.statusvente,a.etat,a.dateannonce,
@@ -50,23 +55,6 @@ create or replace view codecredit_v as
             on c.idvaleurcredit=v.idvaleurcredit;
 
 
-
--- prixvente double
--- descriptions text
--- dateannonce date
--- nomlieu varchar
--- nomvoiture varchar
--- nombreplace int
--- kilometrage double
--- transmission int
--- vitesse
--- nomuser
--- prenomuser
--- nomcarburant
--- nommarque
--- idmodel
--- nommodel
--- nomcategorie
 select ad_v.*, af.idannoncefavoris from annoncedetail_v as ad_v left join annoncefavoris as af on (ad_v.idannonce=af.idannonce and af.iduser= :iduser) 
 where ad_v.iduser!= :iduser
 ad_v.dateannonce ASC

@@ -149,20 +149,22 @@ public class AnnonceMiSer {
 // ---statusvente : 0 : vendu /10 : non vendu
 // ---etat : 0:encour demande / 10 :accepter / 20: refuser
     @Transactional
-    public void insertAnnonce(Annoncesave annoncesave ,MultipartFile[] mfiles,String pathForSave)throws Exception{
+    public void insertAnnonce(Annoncesave annoncesave)throws Exception{
 
         AnnonceMi annonce=new AnnonceMi(0,annoncesave.getPrixvente(),annoncesave.getDescription(),10,0,annoncesave.getIdlieu(),annoncesave.getIdvoitureinfo());
-        if(mfiles==null){ throw new ExceptionCar("pas de(s) photo(s) selectionné(s)"); }
-        else if(mfiles.length==0){ throw new ExceptionCar("pas de(s) photo(s) selectionné(s)"); }
+        if(annoncesave.getPhotocode()==null){ throw new ExceptionCar("pas de(s) photo(s) selectionné(s)"); }
+        else if(annoncesave.getPhotocode().length==0){ throw new ExceptionCar("pas de(s) photo(s) selectionné(s)"); }
         //AnnoncephotoMi(int idannoncephoto,String photo,int idannonce)
         AnnoncephotoMi annoncephotoMi=null;
         annonce=annonceRepository.save(annonce);
-        for(int i=0;i<mfiles.length;i++){
-            annoncephotoMi=new AnnoncephotoMi(0,mfiles[i].getName(),annonce.getIdannonce());
+        String[] photocode=annoncesave.getPhotocode();
+        for(int i=0;i<annoncesave.getPhotocode().length;i++){
+            annoncephotoMi=new AnnoncephotoMi(0,photocode[i],annonce.getIdannonce());
+            annoncephotoMi.compressPhotoAndSet();
             annoncephotoRepository.save(annoncephotoMi);
-            enregistrer(mfiles[i],pathForSave);
         }
     }
+    
     @Transactional
     public void changerstatusMyAnnonce( int iduser,int idannonce,String datevente)throws Exception{
         //00--->efa vonon ny fonction

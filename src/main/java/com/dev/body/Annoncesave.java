@@ -5,6 +5,7 @@ public class Annoncesave {
     int idlieu;
     double prixvente;
     String description;
+    String[] photocode;
     
     public Annoncesave() {
     }
@@ -32,5 +33,12 @@ public class Annoncesave {
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+    public String[] getPhotocode() {
+        return photocode;
+    }
+    public void setPhotocode(String[] photocode) {
+        this.photocode = photocode;
     }   
+    
 }

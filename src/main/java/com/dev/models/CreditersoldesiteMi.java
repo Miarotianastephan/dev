@@ -1,10 +1,13 @@
 package com.dev.models;
 import java.time.LocalDateTime;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Entity;
+
+import com.dev.exception.ExceptionCar;
+
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Entity;
 @Entity
 @Table(name="creditersoldesite")
 public class CreditersoldesiteMi{
@@ -18,7 +21,7 @@ public class CreditersoldesiteMi{
     int idsoldesite; 
 
     public CreditersoldesiteMi(){ }
-    public CreditersoldesiteMi(int idcredit, double montantc, LocalDateTime datec, int iddebit, int idmotif, int idsoldesite) {
+    public CreditersoldesiteMi(int idcredit, double montantc, LocalDateTime datec, int iddebit, int idmotif, int idsoldesite)throws Exception{
         setIdcredit(idcredit);
         setMontantc(montantc);;
         setDatec(datec);
@@ -36,7 +39,8 @@ public class CreditersoldesiteMi{
     public double getMontantc(){
         return this.montantc;
     }
-    public void setMontantc(double montantc){
+    public void setMontantc(double montantc)throws Exception{
+        if(montantc<=0){ throw new ExceptionCar("montant inferieur ou egal à 0"); }
         this.montantc=montantc;
     }
     public LocalDateTime getDatec(){

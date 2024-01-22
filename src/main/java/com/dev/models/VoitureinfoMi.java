@@ -1,9 +1,9 @@
 package com.dev.models;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Entity;
 @Entity
 @Table(name="voitureinfo")
 public class VoitureinfoMi {
@@ -20,8 +20,7 @@ public class VoitureinfoMi {
     int idmarque;
     int idmodel;
     int anneefab;
-    public VoitureinfoMi() {
-    }
+    public VoitureinfoMi() { }
     public VoitureinfoMi(int idvoitureinfo,String nomvoiture,int nombreplace,double kilometrage,int transmission,double vitesse,int iduser,int idcarburant,int idmarque,int idmodel,int anneefab){
         setIdvoitureinfo(idvoitureinfo);
         setNomvoiture(nomvoiture);

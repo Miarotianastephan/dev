@@ -1,9 +1,12 @@
 package com.dev.models;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+import com.dev.exception.ExceptionCar;
+
+import jakarta.persistence.Entity;
 @Entity
 @Table(name="regletaux")
 public class RegletauxMi{
@@ -37,7 +40,8 @@ public class RegletauxMi{
     public int getTauxpourcent(){
         return this.tauxpourcent;
     }
-    public void setTauxpourcent(int tauxpourcent){
+    public void setTauxpourcent(int tauxpourcent)throws Exception{
+        if(tauxpourcent<0){ throw new ExceptionCar("taux pourcentage inferieur à 0"); }
         this.tauxpourcent=tauxpourcent;
     }
 

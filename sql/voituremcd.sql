@@ -34,7 +34,6 @@ CREATE TABLE marque(
    nommarque VARCHAR(50) ,
    PRIMARY KEY(idmarque)
 );
-
 CREATE TABLE categorie(
    idcategorie SERIAL,
    nomcategorie VARCHAR(50) ,
@@ -46,6 +45,15 @@ CREATE TABLE carburant(
    nomcarburant VARCHAR(50) ,
    PRIMARY KEY(idcarburant)
 );
+
+CREATE TABLE modelcategorie(
+   idmodelcategorie SERIAL PRIMARY KEY,
+   idmodel INTEGER,
+   idcategorie INTEGER,
+   FOREIGN KEY(idmodel) REFERENCES models(idmodel),
+   FOREIGN KEY(idcategorie) REFERENCES categorie(idcategorie)
+);
+
 CREATE TABLE voitureinfo(
    idvoitureinfo SERIAL,
    nomvoiture VARCHAR(50) ,
@@ -70,6 +78,7 @@ CREATE TABLE lieu(
    nomlieu VARCHAR(50) ,
    PRIMARY KEY(idlieu)
 );
+
 ----0 dispo 
 ---select * from tokenuser where iduser='' and etats=0;-->throw new ExceptionCar("session plus valide");
 CREATE TABLE tokenuser(
@@ -107,6 +116,7 @@ CREATE TABLE valeurcredit(
    UNIQUE(valeur)
 );
 
+
 CREATE TABLE motif(
    idmotif SERIAL,
    nommotif VARCHAR(50) ,
@@ -133,7 +143,7 @@ CREATE TABLE annonce(
 ---etat : 0:encour demande / 10 :accepter / 20: refuser
 CREATE TABLE annoncephoto(
    idannoncephoto SERIAL,
-   photo VARCHAR(200) ,
+   photo TEXT ,
    idannonce INTEGER NOT NULL,
    PRIMARY KEY(idannoncephoto),
    FOREIGN KEY(idannonce) REFERENCES annonce(idannonce)
@@ -205,7 +215,7 @@ CREATE TABLE creditersoldesite(
    FOREIGN KEY(idmotif) REFERENCES motif(idmotif),
    FOREIGN KEY(Idsoldesite) REFERENCES soldesite(Idsoldesite)
 );
---etats:0 disponible / etats:1 non disponible
+--etats:0 disponible / etats:1 plus disponible
 CREATE TABLE codecredit(
    idcodecredit SERIAL,
    code INTEGER,
@@ -215,6 +225,7 @@ CREATE TABLE codecredit(
    UNIQUE(code),
    FOREIGN KEY(idvaleurcredit) REFERENCES valeurcredit(idvaleurcredit)
 );
+
 CREATE TABLE creditersoldeuser(
    idcredit SERIAL,
    montantc DOUBLE PRECISION,
@@ -242,7 +253,6 @@ CREATE TABLE regletaux(
    tauxpourcent INTEGER,
    PRIMARY KEY(idregletaux)
 );
-
 ---------------------------NON RELATIONNEL
 CREATE TABLE messages(
    idmessages SERIAL,
@@ -256,3 +266,8 @@ CREATE TABLE messages(
    idusersend INTEGER NOT NULL,
    iduserreceive INTEGER NOT NULL
 );
+
+select ad_v.*, af.idannoncefavoris from annoncedetail_v as ad_v 
+left join annoncefavoris as af on (ad_v.idannonce=af.idannonce and af.iduser= :iduser) 
+where ad_v.iduser!= :iduser and ad_v.statusvente=10 and ad_v.etat=10 
+order by ad_v.idannonce ASC,ad_v.idcategorie ASC,ad_v.idannoncephoto ASC,ad_v.dateannonce ASC;

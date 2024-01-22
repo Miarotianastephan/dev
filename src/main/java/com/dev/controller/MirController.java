@@ -22,22 +22,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.io.File;
-
 import com.dev.body.*;
 import com.dev.exception.ExceptionCar;
 import com.dev.models.AnnonceBodyMi;
-import com.dev.models.AnnoncedetailMi_v;
-import com.dev.service.*;
+import com.dev.models.*;
+import com.dev.service.VoitureinfoMiSer;
+import com.dev.service.AnnonceMiSer;
+import com.dev.service.AnnoncedetailMi_vSer;
+import com.dev.service.AnnoncefavorisMiSer;
+import com.dev.service.CreditersoldeuserMiSer;
+import com.dev.service.SoldeuserMiSer;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -45,7 +40,7 @@ import com.dev.service.*;
 public class MirController {
     
     @Autowired
-    private VoitureinfoMiSer serviceVoitureinfoMiSer;
+    private VoitureinfoMiSer voitureinfoMiSer;
     @Autowired
     private AnnonceMiSer annonceMiSer;
     @Autowired
@@ -54,6 +49,8 @@ public class MirController {
     private AnnoncefavorisMiSer annoncefavorisMiSer;
     @Autowired
     private CreditersoldeuserMiSer creditersoldeuserMiSer;
+    @Autowired
+    private SoldeuserMiSer soldeuserMiSer;
     
     @Value("${file.path}")
     private String imageDirectory;
@@ -62,11 +59,30 @@ public class MirController {
     public String getHello(){
         return "Hello All !!";
     }
+    @GetMapping("/hello1")
+    public String getHello1(){
+        return "Hello All !!";
+    }
     @PostMapping("/ajoutinfocar")
     public ResponseEntity<String> ajoutinfocar( @RequestBody InfoCar infoCar) {
         String message="";
         try{
-            serviceVoitureinfoMiSer.saveByInfoCar(infoCar);
+            voitureinfoMiSer.saveByInfoCar(infoCar);
+        }catch(ExceptionCar ec){
+            message=ec.getMessage();
+            ec.printStackTrace();
+        }catch(Exception e){
+            message="error";
+            e.printStackTrace();
+        }
+        return ResponseEntity.ok(message);
+    }
+
+    @PostMapping("/creercompte")
+    public ResponseEntity<String>  creercompte(@RequestParam int iduser){
+        String message="";
+        try{
+            soldeuserMiSer.createSoldeUserIfExiste(iduser);
         }catch(ExceptionCar ec){
             message=ec.getMessage();
             ec.printStackTrace();
@@ -78,10 +94,10 @@ public class MirController {
     }
 
     @PostMapping("/ajoutannonce") 
-    public ResponseEntity<String> ajoutannonce( @RequestBody Annoncesave annoncesave, @RequestPart("files") MultipartFile[] mfiles) {
+    public ResponseEntity<String> ajoutannonce( @RequestBody Annoncesave annoncesave) {
         String message="";
         try{
-            annonceMiSer.insertAnnonce(annoncesave, mfiles,imageDirectory);
+            annonceMiSer.insertAnnonce(annoncesave);
         }catch(ExceptionCar ec){
             message=ec.getMessage();
             ec.printStackTrace();
@@ -102,17 +118,6 @@ public class MirController {
         List<AnnoncedetailMi_v> lstA= annoncedetailMi_vSer.getAllByIduserByNbafficheByNumlineBeforFirst(iduser, nbaffiche, numLineBeforeFirst);
         List<AnnonceBodyMi> lstAB=new AnnonceBodyMi().createListByListAnnoncedetailMi_v(lstA);
         return ResponseEntity.ok(lstAB);
-    }
-
-    @GetMapping("/{imageName}")
-    public ResponseEntity<Resource> getImage(@PathVariable String imageName) throws IOException {
-        Path imagePath = Paths.get(imageDirectory).resolve(imageName);
-        Resource resource = new UrlResource(imagePath.toUri());
-        if (resource.exists() && resource.isReadable()) {
-            return ResponseEntity.ok().body(resource);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
     }
     
     @PostMapping("/toFavoris")

@@ -9,6 +9,7 @@ import com.dev.exception.ExceptionCar;
 import com.dev.models.CategorievoitureMi;
 import com.dev.models.VoitureinfoMi;
 import com.dev.repository.CategorievoitureMiRep;
+import com.dev.repository.ModelcategorieMiPersoRep;
 import com.dev.repository.VoitureinfoMiRep;
 
 import java.util.List;
@@ -20,20 +21,13 @@ public class VoitureinfoMiSer {
     private VoitureinfoMiRep voitureinfoRepository;
     @Autowired
     private CategorievoitureMiRep categorievoitureMiRep;
+    @Autowired
+    private ModelcategorieMiPersoRep modelcategorieMiPersoRep;
 
     public VoitureinfoMi save(VoitureinfoMi Article) {
         return voitureinfoRepository.save(Article);
     }
-    String nomvoiture;
-    int nbplace;
-    int idmarque;
-    int idcarburant;
-    int idmodel;
-    int anneefabrication;
-    double kilometrage;
-    int transmission;
-    int[] idcategorie;
-    double vitesse;
+
     //VoitureinfoMi(int idvoitureinfo,String nomvoiture,int nombreplace,double kilometrage,int transmission,double vitesse,int iduser,int idcarburant,int idmarque,int idmodel)
     @Transactional
     public void saveByInfoCar(InfoCar infoCar)throws Exception {
@@ -41,6 +35,8 @@ public class VoitureinfoMiSer {
         int[] idcategories=infoCar.getIdcategories();
         if(idcategories==null){ throw new ExceptionCar(""); }
         else if(idcategories.length==0){ throw new ExceptionCar(""); }
+        boolean goodCateg=modelcategorieMiPersoRep.isCategoriesOfModel(infoCar.getIdcategories(), infoCar.getIdmodel());
+        if(goodCateg==false){ throw new ExceptionCar("un ou plusieur de ce(s) categori(es) sont non conforme a cette model"); }
         voitureinfoMi=voitureinfoRepository.save(voitureinfoMi);
         CategorievoitureMi categorievoitureMi=null;
         for(int i=0;i<idcategories.length;i++){

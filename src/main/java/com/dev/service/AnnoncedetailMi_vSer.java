@@ -1,8 +1,6 @@
 package com.dev.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import com.dev.models.AnnoncedetailMi_v;
 import com.dev.repository.AnnoncedetailMiPersoRep;
@@ -10,7 +8,6 @@ import com.dev.repository.AnnoncedetailMi_vRep;
 
 import java.sql.Date;
 import java.util.List;
-import java.util.Optional;
 @Service
 public class AnnoncedetailMi_vSer {
 
@@ -18,19 +15,6 @@ public class AnnoncedetailMi_vSer {
     private AnnoncedetailMi_vRep annonceRepository;
     @Autowired
     private AnnoncedetailMiPersoRep annoncedetaipersoRepository;
-    public List<AnnoncedetailMi_v> getAll() {
-        return annonceRepository.findAll();
-    }
-    public AnnoncedetailMi_v[] getTabAll(){
-        List<AnnoncedetailMi_v> lst=getAll();
-        if(lst==null){ return null; }
-        if(lst.isEmpty()==true){ return null; }
-        AnnoncedetailMi_v[] Annonces=new AnnoncedetailMi_v[lst.size()];
-        for(int i=0;i<lst.size();i++){
-            Annonces[i]=lst.get(i);
-        }
-        return Annonces;
-    }
     public List<AnnoncedetailMi_v> getAllByNotIduserByNbafficheByNumlineBeforFirst(int iduser,int nbaffiche,int numlineBeforeFirst ){
         return annonceRepository.getByNotIduser(iduser,nbaffiche,numlineBeforeFirst);
     }//getByIduser(@Param("iduser")int iduser,@Param("nbaffiche")int nbaffiche,@Param("numlineBeforeFirst")int numlineBeforeFirst ) 
@@ -39,10 +23,6 @@ public class AnnoncedetailMi_vSer {
     }
     public List<AnnoncedetailMi_v> getAllEncoursByNbafficheByNumlineBeforFirst(int nbaffiche,int numlineBeforeFirst ){
         return annonceRepository.getEncours(nbaffiche, numlineBeforeFirst);
-    }
-    // Méthode pour récupérer un categorie par son ID
-    public Optional<AnnoncedetailMi_v> getById(int id) {
-        return annonceRepository.findById(id);
     }
     public String createSuiteRequeteRechercher(String word,int idmarque,int idmodel,int idcarburant,int nbplace,double prix1,double prix2,int[] idcategories)
     {

@@ -1,16 +1,6 @@
 package com.dev.models;
 import java.time.LocalDateTime;
-import java.util.List;
-
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-
 import java.sql.Date;
-// import javax.persistence.GeneratedValue;
-// import javax.persistence.GenerationType;
-// import javax.persistence.Id;
-// import javax.persistence.Table;
-// import javax.persistence.Entity;
 public class AnnoncedetailMi_v{
     int idannonce; 
     double prixvente; 
@@ -39,9 +29,9 @@ public class AnnoncedetailMi_v{
     String nomcategorie; 
     Date datevente; 
     Date datemodifstatus;
-    int idannoncefavoris; //0 raha tsy favoriany io
     int idannoncephoto;
     String photo;
+    int idannoncefavoris; //0 raha tsy favoriany io
     //select ad_v.*,af.idannoncefavoris from annnoncedetail_v as left join annoncefavoris as af on (ad_v.idannonce=af.idannonce and af.iduser= 'iduserconnect' ) ;
     public AnnoncedetailMi_v(){ }
     

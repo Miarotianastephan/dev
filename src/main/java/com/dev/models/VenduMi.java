@@ -1,13 +1,13 @@
 package com.dev.models;
 import java.sql.Date;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Entity;
 
 import com.dev.exception.ExceptionCar;
 
-import javax.persistence.Entity;
 @Entity
 @Table(name="vendu")
 public class VenduMi{

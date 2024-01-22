@@ -3,8 +3,11 @@ package com.dev.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dev.exception.ExceptionCar;
 import com.dev.models.SoldeuserMi;
 import com.dev.repository.SoldeuserMiRep;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 @Service
@@ -33,6 +36,17 @@ public class SoldeuserMiSer {
         List<SoldeuserMi> ls=repository.getSoldeByIduser(iduser);
         if(ls.isEmpty()==true){ return null; }
         else { return ls.get(0);  }
+    }
+
+    public void createSoldeUserIfExiste(int iduser)throws Exception{
+        SoldeuserMi soldeuserMi=getSoldeByIduser(iduser);
+        if(soldeuserMi==null){
+            SoldeuserMi soldeuserMi2=new SoldeuserMi();
+            soldeuserMi2.setSolde(0);
+            soldeuserMi2.setDateupdate(LocalDateTime.now());
+            soldeuserMi2.setIduser(iduser);
+            save(soldeuserMi2);
+        }else{ throw new ExceptionCar("compte pour cette user existe deja"); }
     }
     // Méthode pour récupérer un  par son ID
     public Optional<SoldeuserMi> getById(int id) {
