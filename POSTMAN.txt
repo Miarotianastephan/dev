@@ -1,0 +1,27 @@
+http://localhost:3000/api/main/hello
+----body infocar
+
+http://localhost:3000/api/mir/ajoutinfocar
+{
+"nomvoiture":"Voiture Naka",
+"nbplace":5,
+"idmarque":1,
+"idcarburant":1,
+"idmodel":2,
+"anneefabrication":2011,
+"kilometrage":12000,
+"transmission":1,
+"idcategories":[1,4],
+"vitesse":200,
+"iduser":1
+}
+-----creer compte
+http://localhost:3000/api/mir/creercompte?iduser=1
+-----creer annonce
+{
+  "idvoitureinfo": 1,
+  "idlieu": 2,
+  "prixvente": 100000000,
+  "description": "mandeha tsara tsisy blem",
+  "files": []
+}

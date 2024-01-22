@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 @Service
@@ -149,16 +150,17 @@ public class AnnonceMiSer {
 // ---statusvente : 0 : vendu /10 : non vendu
 // ---etat : 0:encour demande / 10 :accepter / 20: refuser
     @Transactional
-    public void insertAnnonce(Annoncesave annoncesave)throws Exception{
+    public void insertAnnonce(Annoncesave annoncesave,MultipartFile[] files)throws Exception{
 
         AnnonceMi annonce=new AnnonceMi(0,annoncesave.getPrixvente(),annoncesave.getDescription(),10,0,annoncesave.getIdlieu(),annoncesave.getIdvoitureinfo());
-        if(annoncesave.getPhotocode()==null){ throw new ExceptionCar("pas de(s) photo(s) selectionné(s)"); }
-        else if(annoncesave.getPhotocode().length==0){ throw new ExceptionCar("pas de(s) photo(s) selectionné(s)"); }
+        if(files==null){ throw new ExceptionCar("pas de(s) photo(s) selectionné(s)"); }
+        else if(files.length==0){ throw new ExceptionCar("pas de(s) photo(s) selectionné(s)"); }
         //AnnoncephotoMi(int idannoncephoto,String photo,int idannonce)
         AnnoncephotoMi annoncephotoMi=null;
         annonce=annonceRepository.save(annonce);
-        String[] photocode=annoncesave.getPhotocode();
-        for(int i=0;i<annoncesave.getPhotocode().length;i++){
+        String[] photocode=new String[files.length];
+        for(int i=0;i<files.length;i++){
+            photocode[i]=Base64.getEncoder().encodeToString(files[i].getBytes());
             annoncephotoMi=new AnnoncephotoMi(0,photocode[i],annonce.getIdannonce());
             annoncephotoMi.compressPhotoAndSet();
             annoncephotoRepository.save(annoncephotoMi);

@@ -271,3 +271,7 @@ select ad_v.*, af.idannoncefavoris from annoncedetail_v as ad_v
 left join annoncefavoris as af on (ad_v.idannonce=af.idannonce and af.iduser= :iduser) 
 where ad_v.iduser!= :iduser and ad_v.statusvente=10 and ad_v.etat=10 
 order by ad_v.idannonce ASC,ad_v.idcategorie ASC,ad_v.idannoncephoto ASC,ad_v.dateannonce ASC;
+
+select * from modelcategorie as mc 
+join models as m on m.idmodel=mc.idmodel
+join categorie as c on c.idcategorie=mc.idcategorie order by m.idmodel;

@@ -1,21 +1,23 @@
 package com.dev.body;
 
-public class Annoncesave {
+import org.springframework.web.multipart.MultipartFile;
+
+public class Annoncetosave {
     int idvoitureinfo;
     int idlieu;
     double prixvente;
     String description;
-    String[] photocode;
+    MultipartFile[] files;
 
-    public Annoncesave() {
+    public Annoncetosave() {
     }
 
-    public Annoncesave(int idvoitureinfo, int idlieu, double prixvente, String description, String[] photocode) {
+    public Annoncetosave(int idvoitureinfo, int idlieu, double prixvente, String description, MultipartFile[] files) {
         setIdvoitureinfo(idvoitureinfo);
         setIdlieu(idlieu);
         setPrixvente(prixvente);
         setDescription(description);
-        setPhotocode(photocode);
+        setFiles(files);
     }
     public int getIdvoitureinfo() {
         return idvoitureinfo;
@@ -41,11 +43,13 @@ public class Annoncesave {
     public void setDescription(String description) {
         this.description = description;
     }
-    public String[] getPhotocode() {
-        return photocode;
+
+    public MultipartFile[] getFiles() {
+        return files;
     }
-    public void setPhotocode(String[] photocode) {
-        this.photocode = photocode;
-    }   
+    public void setFiles(MultipartFile[] files) {
+        this.files = files;
+    }
+     
 
 }

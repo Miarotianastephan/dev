@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.dev.body.*;
 import com.dev.exception.ExceptionCar;
-import com.dev.models.AnnonceBodyMi;
 import com.dev.models.*;
 import com.dev.service.VoitureinfoMiSer;
 import com.dev.service.AnnonceMiSer;
@@ -52,8 +54,10 @@ public class MirController {
     public String getHello1(){
         return "Hello All !!";
     }
-    @PostMapping("/ajoutinfocar")
+    //Mandeha
+    @GetMapping("/ajoutinfocar")
     public ResponseEntity<String> ajoutinfocar( @RequestBody InfoCar infoCar) {
+        
         String message="";
         try{
             voitureinfoMiSer.saveByInfoCar(infoCar);
@@ -67,7 +71,8 @@ public class MirController {
         return ResponseEntity.ok(message);
     }
 
-    @PostMapping("/creercompte")
+    //mandeha
+    @GetMapping("/creercompte")
     public ResponseEntity<String>  creercompte(@RequestParam int iduser){
         String message="";
         try{
@@ -83,10 +88,12 @@ public class MirController {
     }
 
     @PostMapping("/ajoutannonce") 
-    public ResponseEntity<String> ajoutannonce( @RequestBody Annoncesave annoncesave) {
+    public ResponseEntity<String> ajoutannonce( @RequestBody Annoncetosave annoncetosave) {
+        System.out.println("tonga");
         String message="";
         try{
-            annonceMiSer.insertAnnonce(annoncesave);
+            Annoncesave annoncesave=new Annoncesave(annoncetosave.getIdvoitureinfo(), annoncetosave.getIdlieu(), annoncetosave.getPrixvente(), annoncetosave.getDescription(), null);
+            annonceMiSer.insertAnnonce(annoncesave,annoncetosave.getFiles());
         }catch(ExceptionCar ec){
             message=ec.getMessage();
             ec.printStackTrace();
@@ -96,20 +103,20 @@ public class MirController {
         }
         return ResponseEntity.ok(message);
     }
-    @PostMapping("/getPubAnnoces") //les annonces sauf mes annonces
+    @GetMapping("/getPubAnnoces") //les annonces sauf mes annonces
     public ResponseEntity< List<AnnonceBodyMi> > getPubAnnoces( @RequestParam int iduser,@RequestParam int nbaffiche,@RequestParam int numLineBeforeFirst) {
         List<AnnoncedetailMi_v> lstA= annoncedetailMi_vSer.getAllByNotIduserByNbafficheByNumlineBeforFirst(iduser, nbaffiche, numLineBeforeFirst);
         List<AnnonceBodyMi> lstAB=new AnnonceBodyMi().createListByListAnnoncedetailMi_v(lstA);
         return ResponseEntity.ok(lstAB);
     }
-    @PostMapping("/getMesAnnoces")
+    @GetMapping("/getMesAnnoces")
     public ResponseEntity< List<AnnonceBodyMi> > getMesAnnoces( @RequestParam int iduser,@RequestParam int nbaffiche,@RequestParam int numLineBeforeFirst) {
         List<AnnoncedetailMi_v> lstA= annoncedetailMi_vSer.getAllByIduserByNbafficheByNumlineBeforFirst(iduser, nbaffiche, numLineBeforeFirst);
         List<AnnonceBodyMi> lstAB=new AnnonceBodyMi().createListByListAnnoncedetailMi_v(lstA);
         return ResponseEntity.ok(lstAB);
     }
     
-    @PostMapping("/toFavoris")
+    @GetMapping("/toFavoris")
     public ResponseEntity< String > getPubAnnoces( @RequestParam int iduser,@RequestParam int idannonce) {
 
         String message="";
@@ -125,14 +132,14 @@ public class MirController {
         return ResponseEntity.ok(message);
     }
 
-    @PostMapping("/getAnnoncesNonValider")
+    @GetMapping("/getAnnoncesNonValider")
     public ResponseEntity< List<AnnonceBodyMi> > getAnnoncesNonValider( @RequestParam int iduser,@RequestParam int nbaffiche,@RequestParam int numlineBeforeFirst) {
         List<AnnoncedetailMi_v> lstA= annoncedetailMi_vSer.getAllEncoursByNbafficheByNumlineBeforFirst(nbaffiche,numlineBeforeFirst );
         List<AnnonceBodyMi> lstAB=new AnnonceBodyMi().createListByListAnnoncedetailMi_v(lstA);
         return ResponseEntity.ok(lstAB);
     }
 
-    @PostMapping("/validerAnnonce")
+    @GetMapping("/validerAnnonce")
     public ResponseEntity< String > validerAnnonce( @RequestParam int idadmin,@RequestParam int idannonce,@RequestParam String date) {   
         String message="";
         try{
@@ -147,7 +154,7 @@ public class MirController {
         return ResponseEntity.ok(message);
     }
 
-    @PostMapping("/refuserAnnonce") 
+    @GetMapping("/refuserAnnonce") 
     public ResponseEntity< String > refuserAnnonce( @RequestParam int idadmin,@RequestParam int idannonce,@RequestParam String date) {   
         String message="";
         try{
@@ -162,7 +169,7 @@ public class MirController {
         return ResponseEntity.ok(message);
     }
 
-    @PostMapping("/changerStatusAnnonce") 
+    @GetMapping("/changerStatusAnnonce") 
     public ResponseEntity< String > changerStatusAnnonce( @RequestParam int iduser,@RequestParam int idannonce,@RequestParam String datevente) {   
         String message="";
         try{
@@ -178,7 +185,7 @@ public class MirController {
         }
         return ResponseEntity.ok(message);
     }
-    @PostMapping("/creditercompte")
+    @GetMapping("/creditercompte")
     public ResponseEntity< String > creditercompte( @RequestParam int iduser,@RequestParam String code) {   
         String message="";
         try{
@@ -193,19 +200,19 @@ public class MirController {
         return ResponseEntity.ok(message);
     }
     //-------------------recherche
-    @PostMapping("/searchOnNonValider")
+    @GetMapping("/searchOnNonValider")
     public ResponseEntity< List<AnnonceBodyMi> > searchOnNonValider( @RequestBody Search search) {
         List<AnnoncedetailMi_v> lstA= annoncedetailMi_vSer.getSearchAllEncoursByNbafficheByNumlineBeforFirst(search.getNbaffiche(), search.getNumlineBeforeFirst(), search.getWord(), search.getIdmarque(), search.getIdmodel(), search.getIdcarburant(), search.getNbplace(), search.getPrix1(), search.getPrix2(), search.getIdcategories());
         List<AnnonceBodyMi> lstAB=new AnnonceBodyMi().createListByListAnnoncedetailMi_v(lstA);
         return ResponseEntity.ok(lstAB);
     }
-    @PostMapping("/searchOnPubAnnonce") //les annonces sauf mes annonces
+    @GetMapping("/searchOnPubAnnonce") //les annonces sauf mes annonces
     public ResponseEntity< List<AnnonceBodyMi> > searchOnPubAnnonce( @RequestBody Search search) {
         List<AnnoncedetailMi_v> lstA= annoncedetailMi_vSer.getSearchAllByNotIduserByNbafficheByNumlineBeforFirst(search.getIduser(),search.getNbaffiche(), search.getNumlineBeforeFirst(), search.getWord(), search.getIdmarque(), search.getIdmodel(), search.getIdcarburant(), search.getNbplace(), search.getPrix1(), search.getPrix2(), search.getIdcategories());
         List<AnnonceBodyMi> lstAB=new AnnonceBodyMi().createListByListAnnoncedetailMi_v(lstA);
         return ResponseEntity.ok(lstAB);
     }
-    @PostMapping("/searchOnMesAnnonces")
+    @GetMapping("/searchOnMesAnnonces")
     public ResponseEntity< List<AnnonceBodyMi> > searchOnMesAnnonces( @RequestBody Search search) {
         List<AnnoncedetailMi_v> lstA= annoncedetailMi_vSer.getSearchAllByIduserByNbafficheByNumlineBeforFirst(search.getIduser(),search.getNbaffiche(), search.getNumlineBeforeFirst(), search.getWord(), search.getIdmarque(), search.getIdmodel(), search.getIdcarburant(), search.getNbplace(), search.getPrix1(), search.getPrix2(), search.getIdcategories());
         List<AnnonceBodyMi> lstAB=new AnnonceBodyMi().createListByListAnnoncedetailMi_v(lstA);
