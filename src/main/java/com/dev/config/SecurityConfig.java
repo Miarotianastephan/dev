@@ -15,7 +15,10 @@ public class SecurityConfig {
                 .anyRequest()
                 .authenticated()
         )
-                .httpBasic();
+                .httpBasic()
+                .and()
+                .csrf().disable() // Désactivez CSRF pour faciliter les tests, mais assurez-vous de l'activer en production.
+                .cors();
         return http.build();
     }
 }
