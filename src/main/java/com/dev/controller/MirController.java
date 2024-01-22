@@ -46,7 +46,7 @@ public class MirController {
 
     @GetMapping(path = "/hello" , produces = "application/json")
     public String getHello(){
-        return "Hello All !!";
+        return "Hello Mirado!!";
     }
     @GetMapping("/hello1")
     public String getHello1(){
