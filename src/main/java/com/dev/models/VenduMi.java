@@ -15,7 +15,7 @@ public class VenduMi{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int idvendu; 
     Date datevente; 
-    Date datemodifstatus; 
+    Date datemodifstatus;
     int idannonce; 
 
     public VenduMi(){ }

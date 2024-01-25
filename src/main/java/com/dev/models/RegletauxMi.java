@@ -15,7 +15,7 @@ public class RegletauxMi{
     int idregletaux; 
     String coderegle; 
     String nomregle; 
-    int tauxpourcent; 
+    float tauxpourcent; 
 
     public RegletauxMi(){ }
     
@@ -37,10 +37,10 @@ public class RegletauxMi{
     public void setNomregle(String nomregle){
         this.nomregle=nomregle;
     }
-    public int getTauxpourcent(){
+    public float getTauxpourcent(){
         return this.tauxpourcent;
     }
-    public void setTauxpourcent(int tauxpourcent)throws Exception{
+    public void setTauxpourcent(float tauxpourcent)throws Exception{
         if(tauxpourcent<0){ throw new ExceptionCar("taux pourcentage inferieur à 0"); }
         this.tauxpourcent=tauxpourcent;
     }

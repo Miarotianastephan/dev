@@ -1,6 +1,5 @@
 package com.dev.models;
-import java.time.LocalDateTime;
-
+import java.sql.Timestamp;
 import com.dev.exception.ExceptionCar;
 
 import jakarta.persistence.GeneratedValue;
@@ -15,13 +14,13 @@ public class CreditersoldesiteMi{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int idcredit; 
     double montantc; 
-    LocalDateTime datec; 
+    Timestamp datec; 
     int iddebit; 
     int idmotif; 
     int idsoldesite; 
 
     public CreditersoldesiteMi(){ }
-    public CreditersoldesiteMi(int idcredit, double montantc, LocalDateTime datec, int iddebit, int idmotif, int idsoldesite)throws Exception{
+    public CreditersoldesiteMi(int idcredit, double montantc, Timestamp datec, int iddebit, int idmotif, int idsoldesite)throws Exception{
         setIdcredit(idcredit);
         setMontantc(montantc);;
         setDatec(datec);
@@ -43,10 +42,10 @@ public class CreditersoldesiteMi{
         if(montantc<=0){ throw new ExceptionCar("montant inferieur ou egal à 0"); }
         this.montantc=montantc;
     }
-    public LocalDateTime getDatec(){
+    public Timestamp getDatec(){
         return this.datec;
     }
-    public void setDatec(LocalDateTime datec){
+    public void setDatec(Timestamp datec){
         this.datec=datec;
     }
     public int getIddebit(){

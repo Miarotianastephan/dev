@@ -1,5 +1,5 @@
 package com.dev.models;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.sql.Date;
 public class AnnoncedetailMi_v{
     int idannonce; 
@@ -7,7 +7,7 @@ public class AnnoncedetailMi_v{
     String descriptions; 
     int statusvente; 
     int etat; 
-    LocalDateTime dateannonce; 
+    Timestamp dateannonce; 
     int idlieu; 
     String nomlieu; 
     int idvoitureinfo; 
@@ -15,6 +15,7 @@ public class AnnoncedetailMi_v{
     int nombreplace; 
     double kilometrage; 
     int transmission; 
+    String nomtransmission;
     double vitesse; 
     int iduser; 
     String nomuser; 
@@ -27,6 +28,7 @@ public class AnnoncedetailMi_v{
     String nommodel; 
     int idcategorie; 
     String nomcategorie; 
+    int anneefab;
     Date datevente; 
     Date datemodifstatus;
     int idannoncephoto;
@@ -34,7 +36,47 @@ public class AnnoncedetailMi_v{
     int idannoncefavoris; //0 raha tsy favoriany io
     //select ad_v.*,af.idannoncefavoris from annnoncedetail_v as left join annoncefavoris as af on (ad_v.idannonce=af.idannonce and af.iduser= 'iduserconnect' ) ;
     public AnnoncedetailMi_v(){ }
-    
+    //t.nomtransmission
+    public AnnoncedetailMi_v(int idannonce, double prixvente, String descriptions, int statusvente, int etat,
+            Timestamp dateannonce, int idlieu, String nomlieu, int idvoitureinfo, String nomvoiture,
+            int nombreplace, double kilometrage, int transmission, String nomtransmission, double vitesse, int iduser, String nomuser,
+            String prenomuser, int idcarburant, String nomcarburant, int idmarque, String nommarque, int idmodel,
+            String nommodel, int idcategorie, String nomcategorie,int anneefab, Date datevente, Date datemodifstatus,
+            int idannoncephoto, String photo, int idannoncefavoris) {
+        this.idannonce = idannonce;
+        this.prixvente = prixvente;
+        this.descriptions = descriptions;
+        this.statusvente = statusvente;
+        this.etat = etat;
+        this.dateannonce = dateannonce;
+        this.idlieu = idlieu;
+        this.nomlieu = nomlieu;
+        this.idvoitureinfo = idvoitureinfo;
+        this.nomvoiture = nomvoiture;
+        this.nombreplace = nombreplace;
+        this.kilometrage = kilometrage;
+        this.transmission = transmission;
+        this.nomtransmission=nomtransmission;
+        this.vitesse = vitesse;
+        this.iduser = iduser;
+        this.nomuser = nomuser;
+        this.prenomuser = prenomuser;
+        this.idcarburant = idcarburant;
+        this.nomcarburant = nomcarburant;
+        this.idmarque = idmarque;
+        this.nommarque = nommarque;
+        this.idmodel = idmodel;
+        this.nommodel = nommodel;
+        this.idcategorie = idcategorie;
+        this.nomcategorie = nomcategorie;
+        this.anneefab=anneefab;
+        this.datevente = datevente;
+        this.datemodifstatus = datemodifstatus;
+        this.idannoncephoto = idannoncephoto;
+        this.photo = photo;
+        this.idannoncefavoris = idannoncefavoris;
+    }
+
     public int getIdannonce(){
         return this.idannonce;
     }
@@ -85,10 +127,10 @@ public class AnnoncedetailMi_v{
             return "refusée";
         }else{ return ""; }
     }
-    public LocalDateTime getDateannonce(){
+    public Timestamp getDateannonce(){
         return this.dateannonce;
     }
-    public void setDateannonce(LocalDateTime dateannonce){
+    public void setDateannonce(Timestamp dateannonce){
         this.dateannonce=dateannonce;
     }
     public int getIdlieu(){
@@ -133,6 +175,12 @@ public class AnnoncedetailMi_v{
     public void setTransmission(int transmission){
         this.transmission=transmission;
     }
+    public String getNomtransmission() {
+        return nomtransmission;
+    }
+    public void setNomtransmission(String nomtransmission) {
+        this.nomtransmission = nomtransmission;
+    }   
     public double getVitesse(){
         return this.vitesse;
     }
@@ -205,6 +253,12 @@ public class AnnoncedetailMi_v{
     public void setNomcategorie(String nomcategorie){
         this.nomcategorie=nomcategorie;
     }
+    public int getAnneefab() {
+        return anneefab;
+    }
+    public void setAnneefab(int anneefab) {
+        this.anneefab = anneefab;
+    }
     public Date getDatevente(){
         return this.datevente;
     }
@@ -239,4 +293,6 @@ public class AnnoncedetailMi_v{
         if(idannoncefavoris<=0){ return false; }
         else{ return true; }
     }
+
+    
 }

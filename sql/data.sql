@@ -1,10 +1,14 @@
 --user
 insert into users(nomuser,prenomuser,mail,nee,pwd) values('Miaro','Tina','miaro@gmail.com','2002-10-10','1234');
 insert into users(nomuser,prenomuser,mail,nee,pwd) values('Taf','Ita','tafita@gmail.com','2002-11-11','1234');
+--admins
+insert into admins (nomadmin,prenomadmin,mail,nee,pwd) values('Mir','Ado','mirado@gmail.com','2002-04-04','1234');
+--transmission
+insert into transmission(nomtransmission) values('Manuel'),('Automatique'),('Hibride Auto Manuel');
 --marque
 insert into marque(nommarque) values('MarqueU'),('MarqueV'),('MarqueW'),('MarqueX');
 --model
-insert into models(nommodel) values('ModelA'),('ModelB'),('ModelC'),('ModelD');
+insert into models(nommodel,idmarque,transmission,anneefab,vitesse,idcarburant) values('ModelA'),('ModelB'),('ModelC'),('ModelD');
 --Categorie
 insert into categorie(nomcategorie) values('CategorieB'),('CategorieA'),('CategorieA'),('CategorieB'),('CategorieD'),('CategorieD'),('CategorieC'),('CategorieC');
 --model categorie
@@ -46,3 +50,9 @@ insert into codecredit(code,etats,idvaleurcredit) values
 (10000024,0,6);
 --regle taux commission
 insert into regletaux (coderegle,nomregle,tauxpourcent) values('C000','commission',10);
+
+insert into motif ( nommotif, codemotif) values ('commission','C000'); 
+
+insert into soldesite  ( solde , dateupdate) values (0,' 2024-01-24 19:35:59.452275');
+
+

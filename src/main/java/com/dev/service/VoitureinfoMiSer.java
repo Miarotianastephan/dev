@@ -14,6 +14,7 @@ import com.dev.repository.VoitureinfoMiRep;
 
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class VoitureinfoMiSer {
 
@@ -29,20 +30,20 @@ public class VoitureinfoMiSer {
     }
 
     //VoitureinfoMi(int idvoitureinfo,String nomvoiture,int nombreplace,double kilometrage,int transmission,double vitesse,int iduser,int idcarburant,int idmarque,int idmodel)
-    @Transactional
+    @Transactional(rollbackFor = { Exception.class, ExceptionCar.class })
     public void saveByInfoCar(InfoCar infoCar)throws Exception {
-        VoitureinfoMi voitureinfoMi=new VoitureinfoMi(0, infoCar.getNomvoiture(), infoCar.getNbplace(), infoCar.getKilometrage(), infoCar.getTransmission(), infoCar.getVitesse(), infoCar.getIduser(), infoCar.getIdcarburant(), infoCar.getIdmarque(), infoCar.getIdmodel(),infoCar.getAnneefabrication());
-        int[] idcategories=infoCar.getIdcategories();
-        if(idcategories==null){ throw new ExceptionCar(""); }
-        else if(idcategories.length==0){ throw new ExceptionCar(""); }
-        boolean goodCateg=modelcategorieMiPersoRep.isCategoriesOfModel(infoCar.getIdcategories(), infoCar.getIdmodel());
-        if(goodCateg==false){ throw new ExceptionCar("un ou plusieur de ce(s) categori(es) sont non conforme a cette model"); }
-        voitureinfoMi=voitureinfoRepository.save(voitureinfoMi);
-        CategorievoitureMi categorievoitureMi=null;
-        for(int i=0;i<idcategories.length;i++){
-            categorievoitureMi= new CategorievoitureMi(0,idcategories[i],voitureinfoMi.getIdvoitureinfo());
-            categorievoitureMiRep.save(categorievoitureMi);
-        }
+            VoitureinfoMi voitureinfoMi=new VoitureinfoMi(0, infoCar.getNomvoiture(), infoCar.getNbplace(), infoCar.getKilometrage(), infoCar.getIduser(), infoCar.getIdmodel());
+            int[] idcategories=infoCar.getIdcategories();
+            if(idcategories==null){ throw new ExceptionCar(""); }
+            else if(idcategories.length==0){ throw new ExceptionCar(""); }
+            boolean goodCateg=modelcategorieMiPersoRep.isCategoriesOfModel(infoCar.getIdcategories(), infoCar.getIdmodel());
+            if(goodCateg==false){ throw new ExceptionCar("un ou plusieur de ce(s) categori(es) sont non conforme a cette model"); }
+            voitureinfoMi=voitureinfoRepository.save(voitureinfoMi);
+            CategorievoitureMi categorievoitureMi=null;
+            for(int i=0;i<idcategories.length;i++){
+                categorievoitureMi= new CategorievoitureMi(0,idcategories[i],voitureinfoMi.getIdvoitureinfo());
+                categorievoitureMiRep.save(categorievoitureMi);
+            }
     }
 
     // Méthode pour récupérer tous les Articles

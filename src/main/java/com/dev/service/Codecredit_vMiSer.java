@@ -11,8 +11,8 @@ public class Codecredit_vMiSer {
 
     @Autowired
     private Codecredit_vMiRep repository;
-    public Codecredit_vMi getByCode(int code){
-        List<Codecredit_vMi> lc=repository.getByCode(code);
+    public Codecredit_vMi getByCodeCredit(int code){
+        List<Codecredit_vMi> lc=repository.getByCodeCredit(code);
         if(lc.isEmpty()==true){ return null; }
         else{ return lc.get(0); }
     }

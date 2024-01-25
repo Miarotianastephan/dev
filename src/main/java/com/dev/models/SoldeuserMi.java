@@ -1,5 +1,5 @@
 package com.dev.models;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -12,7 +12,7 @@ public class SoldeuserMi{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int idsoldeuser; 
     double solde; 
-    LocalDateTime dateupdate; 
+    Timestamp dateupdate; 
     int iduser; 
 
     public SoldeuserMi(){ }
@@ -29,10 +29,10 @@ public class SoldeuserMi{
     public void setSolde(double solde){
         this.solde=solde;
     }
-    public LocalDateTime getDateupdate(){
+    public Timestamp getDateupdate(){
         return this.dateupdate;
     }
-    public void setDateupdate(LocalDateTime dateupdate){
+    public void setDateupdate(Timestamp dateupdate){
         this.dateupdate=dateupdate;
     }
     public int getIduser(){

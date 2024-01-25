@@ -12,6 +12,7 @@ CREATE TABLE admins(
    UNIQUE(mail)
 );
 
+
 CREATE TABLE users(
    iduser SERIAL,
    nomuser VARCHAR(50) ,
@@ -23,29 +24,36 @@ CREATE TABLE users(
    UNIQUE(mail)
 );
 
-CREATE TABLE models(
-   idmodel SERIAL,
-   nommodel VARCHAR(50) ,
-   PRIMARY KEY(idmodel)
-);
-
 CREATE TABLE marque(
    idmarque SERIAL,
    nommarque VARCHAR(50) ,
    PRIMARY KEY(idmarque)
 );
-CREATE TABLE categorie(
-   idcategorie SERIAL,
-   nomcategorie VARCHAR(50) ,
-   PRIMARY KEY(idcategorie)
-);
-
 CREATE TABLE carburant(
    idcarburant SERIAL,
    nomcarburant VARCHAR(50) ,
    PRIMARY KEY(idcarburant)
 );
+CREATE TABLE models(
+   idmodel SERIAL,
+   nommodel VARCHAR(50) ,
+   idmarque int REFERENCES marque (idmarque),
+   transmission int REFERENCES transmission(idtransmission),
+   anneefab int check(anneefab>0),
+   vitesse DOUBLE PRECISION check (vitesse>0),
+   idcarburant int REFERENCES carburant (idcarburant),
+   PRIMARY KEY(idmodel)
+);
 
+CREATE TABLE categorie(
+   idcategorie SERIAL,
+   nomcategorie VARCHAR(50) ,
+   PRIMARY KEY(idcategorie)
+);
+create table transmission(
+   idtransmission SERIAL primary key,
+   nomtransmission VARCHAR unique
+);
 CREATE TABLE modelcategorie(
    idmodelcategorie SERIAL PRIMARY KEY,
    idmodel INTEGER,
@@ -59,17 +67,10 @@ CREATE TABLE voitureinfo(
    nomvoiture VARCHAR(50) ,
    nombreplace INTEGER,
    kilometrage DOUBLE PRECISION,
-   transmission INTEGER,
-   vitesse DOUBLE PRECISION,
    iduser INTEGER NOT NULL,
-   idcarburant INTEGER NOT NULL,
-   idmarque INTEGER NOT NULL,
    idmodel INTEGER NOT NULL,
-   anneefab int,
    PRIMARY KEY(idvoitureinfo),
    FOREIGN KEY(iduser) REFERENCES users(iduser),
-   FOREIGN KEY(idcarburant) REFERENCES carburant(idcarburant),
-   FOREIGN KEY(idmarque) REFERENCES marque(idmarque),
    FOREIGN KEY(idmodel) REFERENCES models(idmodel)
 );
 
@@ -120,7 +121,7 @@ CREATE TABLE valeurcredit(
 CREATE TABLE motif(
    idmotif SERIAL,
    nommotif VARCHAR(50) ,
-   codemotif INTEGER,
+   codemotif VARCHAR(30),
    PRIMARY KEY(idmotif),
    UNIQUE(codemotif)
 );
@@ -215,6 +216,7 @@ CREATE TABLE creditersoldesite(
    FOREIGN KEY(idmotif) REFERENCES motif(idmotif),
    FOREIGN KEY(Idsoldesite) REFERENCES soldesite(Idsoldesite)
 );
+
 --etats:0 disponible / etats:1 plus disponible
 CREATE TABLE codecredit(
    idcodecredit SERIAL,
@@ -244,13 +246,13 @@ CREATE TABLE categorievoiture(
    PRIMARY KEY(idcategorievoiture),
    FOREIGN KEY(idcategorie) REFERENCES categorie(idcategorie),
    FOREIGN KEY(idvoitureinfo) REFERENCES voitureinfo(idvoitureinfo)
-);
+); 
 --------coderege: C000 -->commission
 CREATE TABLE regletaux(
    idregletaux SERIAL,
    coderegle VARCHAR(50) ,
    nomregle VARCHAR(50) ,
-   tauxpourcent INTEGER,
+   tauxpourcent float,
    PRIMARY KEY(idregletaux)
 );
 ---------------------------NON RELATIONNEL

@@ -5,6 +5,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 import com.dev.exception.ExceptionCar;
+import java.sql.Timestamp;
+
 
 import jakarta.persistence.Entity;
 @Entity
@@ -19,9 +21,10 @@ public class AnnonceMi{
     int etat; 
     int idlieu; 
     int idvoitureinfo; 
+    Timestamp dateannonce;
 
     public AnnonceMi(){ }
-    public AnnonceMi(int idannonce,double prixvente,String descriptions,int statusvente,int etat,int idlieu,int idvoitureinfo)throws Exception{
+    public AnnonceMi(int idannonce,double prixvente,String descriptions,int statusvente,int etat,int idlieu,int idvoitureinfo,Timestamp dateannonce)throws Exception{
         setIdannonce(idannonce);
         setPrixvente(prixvente);
         setDescriptions(descriptions);
@@ -29,6 +32,7 @@ public class AnnonceMi{
         setEtat(etat);
         setIdlieu(idlieu);
         setIdvoitureinfo(idvoitureinfo);
+        setDateannonce(dateannonce);
     }
     
     public int getIdannonce(){
@@ -96,5 +100,12 @@ public class AnnonceMi{
     public void setEtatToRefus(){
         this.etat=20;
     }
+    public Timestamp getDateannonce() {
+        return dateannonce;
+    }
+    public void setDateannonce(Timestamp dateannonce) {
+        this.dateannonce = dateannonce;
+    }
+    
 
 }

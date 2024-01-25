@@ -1,5 +1,4 @@
 package com.dev.models;
-
 public class Codecredit_vMi{
     int idcodecredit; 
     int code; 
@@ -9,6 +8,18 @@ public class Codecredit_vMi{
 
     public Codecredit_vMi(){ }
     
+
+    
+    public Codecredit_vMi(int idcodecredit, int code, int etats, int idvaleurcredit, double valeur) {
+        this.idcodecredit = idcodecredit;
+        this.code = code;
+        this.etats = etats;
+        this.idvaleurcredit = idvaleurcredit;
+        this.valeur = valeur;
+    }
+
+
+
     public int getIdcodecredit(){
         return this.idcodecredit;
     }

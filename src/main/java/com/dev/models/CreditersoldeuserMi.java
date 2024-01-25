@@ -1,5 +1,5 @@
 package com.dev.models;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 import com.dev.exception.ExceptionCar;
 
@@ -15,13 +15,13 @@ public class CreditersoldeuserMi{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int idcredit; 
     double montantc; 
-    LocalDateTime datec; 
+    Timestamp datec; 
     int idcodecredit; 
     int idsoldeuser; 
 
     public CreditersoldeuserMi(){ }
     
-    public CreditersoldeuserMi(int idcredit, double montantc, LocalDateTime datec, int idcodecredit, int idsoldeuser)throws Exception {
+    public CreditersoldeuserMi(int idcredit, double montantc, Timestamp datec, int idcodecredit, int idsoldeuser)throws Exception {
         setIdcredit(idcredit);
         setMontantc(montantc);
         setDatec(datec);
@@ -41,10 +41,10 @@ public class CreditersoldeuserMi{
         if(montantc<=0){ throw new ExceptionCar("montant inferieur ou egal à 0"); }
         this.montantc=montantc;
     }
-    public LocalDateTime getDatec(){
+    public Timestamp getDatec(){
         return this.datec;
     }
-    public void setDatec(LocalDateTime datec){
+    public void setDatec(Timestamp datec){
         this.datec=datec;
     }
     public int getIdcodecredit(){

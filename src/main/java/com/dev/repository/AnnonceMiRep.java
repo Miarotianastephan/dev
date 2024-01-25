@@ -13,6 +13,6 @@ public interface AnnonceMiRep extends JpaRepository<AnnonceMi, Integer> {
 
 //     ---statusvente : 0 : vendu /10 : non vendu
 // ---etat : 0:encour demande / 10 :accepter / 20: refuser
-    @Query(value = "select a.* from annonce as a join voitureinfo as vif on a.idannonce=vif.idannonce where a.idannonce= :idannonce and vif.iduser= :iduser and a.statusvente=10 and a.etat=10" , nativeQuery = true )
+    @Query(value = "select a.* from annonce as a join voitureinfo as vif on a.idvoitureinfo=vif.idvoitureinfo where a.idannonce= :idannonce and vif.iduser= :iduser and a.statusvente=10 and a.etat=10" , nativeQuery = true )
     List <AnnonceMi> getDisponbleToVenduByIdannonceByIduser( @Param("iduser")int iduser,@Param("idannonce")int idannonce) ;
 }

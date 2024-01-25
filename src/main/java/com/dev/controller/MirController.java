@@ -1,5 +1,6 @@
 package com.dev.controller;
 
+import java.util.Hashtable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -86,14 +86,30 @@ public class MirController {
         }
         return ResponseEntity.ok(message);
     }
-
-    @PostMapping("/ajoutannonce") 
-    public ResponseEntity<String> ajoutannonce( @RequestBody Annoncetosave annoncetosave) {
+    // //Mandeha
+    // @PostMapping("/ajoutannonce") 
+    // public ResponseEntity<String> ajoutannonce( @RequestBody Annoncesave annoncesave,@RequestParam MultipartFile[] files) {
+    //     System.out.println("tonga");
+    //     String message="";
+    //     try{
+    //         annonceMiSer.insertAnnonce(annoncesave,files);
+    //     }catch(ExceptionCar ec){
+    //         message=ec.getMessage();
+    //         ec.printStackTrace();
+    //     }catch(Exception e){
+    //         message="error";
+    //         e.printStackTrace();
+    //     }
+    //     return ResponseEntity.ok(message);
+    // }
+    //mandeha
+    @PostMapping("/ajoutannonce2") 
+    public ResponseEntity<String> ajoutannonce2( @RequestParam int idvoitureinfo,@RequestParam int idlieu,@RequestParam double prixvente,@RequestParam String description,@RequestParam MultipartFile[] files) {
         System.out.println("tonga");
         String message="";
         try{
-            Annoncesave annoncesave=new Annoncesave(annoncetosave.getIdvoitureinfo(), annoncetosave.getIdlieu(), annoncetosave.getPrixvente(), annoncetosave.getDescription(), null);
-            annonceMiSer.insertAnnonce(annoncesave,annoncetosave.getFiles());
+            Annoncesave annoncesave=new Annoncesave(idvoitureinfo, idlieu, prixvente, description, files);
+            annonceMiSer.insertAnnonce2(annoncesave);
         }catch(ExceptionCar ec){
             message=ec.getMessage();
             ec.printStackTrace();
@@ -103,19 +119,97 @@ public class MirController {
         }
         return ResponseEntity.ok(message);
     }
-    @GetMapping("/getPubAnnoces") //les annonces sauf mes annonces
-    public ResponseEntity< List<AnnonceBodyMi> > getPubAnnoces( @RequestParam int iduser,@RequestParam int nbaffiche,@RequestParam int numLineBeforeFirst) {
-        List<AnnoncedetailMi_v> lstA= annoncedetailMi_vSer.getAllByNotIduserByNbafficheByNumlineBeforFirst(iduser, nbaffiche, numLineBeforeFirst);
-        List<AnnonceBodyMi> lstAB=new AnnonceBodyMi().createListByListAnnoncedetailMi_v(lstA);
-        return ResponseEntity.ok(lstAB);
+    //Mandeha
+    @GetMapping("/getAnnoncesNonValider")
+    public Hashtable <String,Object> getAnnoncesNonValider(@RequestParam int nbaffiche,@RequestParam int numlinebeforefirst) {
+        Hashtable <String,Object> response=new Hashtable<>();
+        try{
+            List<AnnoncedetailMi_v> lstA= annoncedetailMi_vSer.getAllEncoursByNbafficheByNumlineBeforFirst(nbaffiche,numlinebeforefirst );
+            List<AnnonceBodyMi> lstAB=new AnnonceBodyMi().createListByListAnnoncedetailMi_v(lstA);
+            response.put("status",200);
+            response.put("message","");
+            if(lstAB!=null){if(lstAB.isEmpty()==false){
+                response.put("data",lstAB);
+            }}
+        }catch(Exception e){
+            e.printStackTrace();
+            response.put("status",400);
+            response.put("message",e.getMessage());
+        }
+        
+        return response;
     }
+
+    //Mandeha
+    @GetMapping("/validerAnnonce")
+    public ResponseEntity< String > validerAnnonce( @RequestParam int idadmin,@RequestParam int idannonce) {   
+        String message="";
+        try{
+            annonceMiSer.valider(idannonce,idadmin);
+        }catch(ExceptionCar ec){
+            message=ec.getMessage();
+            ec.printStackTrace();
+        }catch(Exception e){
+            message="error";
+            e.printStackTrace();
+        }
+        return ResponseEntity.ok(message);
+    }
+
+    //Mandeha 
+    @GetMapping("/refuserAnnonce") 
+    public ResponseEntity< String > refuserAnnonce( @RequestParam int idadmin,@RequestParam int idannonce) {   
+        String message="";
+        try{
+          annonceMiSer.refuser(idannonce, idadmin);
+        }catch(ExceptionCar ec){
+            message=ec.getMessage();
+            ec.printStackTrace();
+        }catch(Exception e){
+            message="error";
+            e.printStackTrace();
+        }
+        return ResponseEntity.ok(message);
+    }
+    //Mandeha  
+    @GetMapping(path="/getPubAnnoces",produces = "application/json") //les annonces sauf mes annonces
+    public Hashtable<String,Object> getPubAnnoces( @RequestParam int iduser,@RequestParam int nbaffiche,@RequestParam int numlinebeforefirst) {
+        Hashtable <String,Object> response=new Hashtable<>();
+        try{
+            List<AnnoncedetailMi_v> lstA= annoncedetailMi_vSer.getAllByNotIduserByNbafficheByNumlineBeforFirst(iduser, nbaffiche, numlinebeforefirst);
+            List<AnnonceBodyMi> lstAB=new AnnonceBodyMi().createListByListAnnoncedetailMi_v(lstA);
+            response.put("status",200);
+            response.put("message","");
+            if(lstAB!=null){if(lstAB.isEmpty()==false){
+                response.put("data",lstAB);
+            }}
+        }catch (Exception e){
+            e.printStackTrace();
+            response.put("status",400);
+            response.put("message",e.getMessage());
+        }
+        return response;
+    }
+    //Mandeha
     @GetMapping("/getMesAnnoces")
-    public ResponseEntity< List<AnnonceBodyMi> > getMesAnnoces( @RequestParam int iduser,@RequestParam int nbaffiche,@RequestParam int numLineBeforeFirst) {
-        List<AnnoncedetailMi_v> lstA= annoncedetailMi_vSer.getAllByIduserByNbafficheByNumlineBeforFirst(iduser, nbaffiche, numLineBeforeFirst);
-        List<AnnonceBodyMi> lstAB=new AnnonceBodyMi().createListByListAnnoncedetailMi_v(lstA);
-        return ResponseEntity.ok(lstAB);
+    public Hashtable <String,Object> getMesAnnoces( @RequestParam int iduser,@RequestParam int nbaffiche,@RequestParam int numlinebeforefirst) {
+        Hashtable <String,Object> response=new Hashtable<>();
+        try{
+            List<AnnoncedetailMi_v> lstA= annoncedetailMi_vSer.getAllByIduserByNbafficheByNumlineBeforFirst(iduser, nbaffiche, numlinebeforefirst);
+            List<AnnonceBodyMi> lstAB=new AnnonceBodyMi().createListByListAnnoncedetailMi_v(lstA);
+            response.put("status",200);
+            response.put("message","");
+            if(lstAB!=null){if(lstAB.isEmpty()==false){
+                response.put("data",lstAB);
+            }}
+        }catch (Exception e){
+            e.printStackTrace();
+            response.put("status",400);
+            response.put("message",e.getMessage());
+        }
+        return response;
     }
-    
+    //mandeha
     @GetMapping("/toFavoris")
     public ResponseEntity< String > getPubAnnoces( @RequestParam int iduser,@RequestParam int idannonce) {
 
@@ -132,18 +226,12 @@ public class MirController {
         return ResponseEntity.ok(message);
     }
 
-    @GetMapping("/getAnnoncesNonValider")
-    public ResponseEntity< List<AnnonceBodyMi> > getAnnoncesNonValider( @RequestParam int iduser,@RequestParam int nbaffiche,@RequestParam int numlineBeforeFirst) {
-        List<AnnoncedetailMi_v> lstA= annoncedetailMi_vSer.getAllEncoursByNbafficheByNumlineBeforFirst(nbaffiche,numlineBeforeFirst );
-        List<AnnonceBodyMi> lstAB=new AnnonceBodyMi().createListByListAnnoncedetailMi_v(lstA);
-        return ResponseEntity.ok(lstAB);
-    }
 
-    @GetMapping("/validerAnnonce")
-    public ResponseEntity< String > validerAnnonce( @RequestParam int idadmin,@RequestParam int idannonce,@RequestParam String date) {   
+    @PostMapping("/creditercompte")
+    public ResponseEntity< String > creditercompte( @RequestParam int iduser,@RequestParam String code) {   
         String message="";
         try{
-            annonceMiSer.valider(idannonce, date, idadmin);
+            creditersoldeuserMiSer.crediterByIduserByCodecredit( iduser,code);
         }catch(ExceptionCar ec){
             message=ec.getMessage();
             ec.printStackTrace();
@@ -153,22 +241,7 @@ public class MirController {
         }
         return ResponseEntity.ok(message);
     }
-
-    @GetMapping("/refuserAnnonce") 
-    public ResponseEntity< String > refuserAnnonce( @RequestParam int idadmin,@RequestParam int idannonce,@RequestParam String date) {   
-        String message="";
-        try{
-          annonceMiSer.refuser(idannonce, date, idadmin);
-        }catch(ExceptionCar ec){
-            message=ec.getMessage();
-            ec.printStackTrace();
-        }catch(Exception e){
-            message="error";
-            e.printStackTrace();
-        }
-        return ResponseEntity.ok(message);
-    }
-
+    //mandeha
     @GetMapping("/changerStatusAnnonce") 
     public ResponseEntity< String > changerStatusAnnonce( @RequestParam int iduser,@RequestParam int idannonce,@RequestParam String datevente) {   
         String message="";
@@ -180,20 +253,6 @@ public class MirController {
             ec.printStackTrace();
         }
         catch(Exception e){
-            message="error";
-            e.printStackTrace();
-        }
-        return ResponseEntity.ok(message);
-    }
-    @GetMapping("/creditercompte")
-    public ResponseEntity< String > creditercompte( @RequestParam int iduser,@RequestParam String code) {   
-        String message="";
-        try{
-            creditersoldeuserMiSer.crediterByIduserByCodecredit( iduser,code);
-        }catch(ExceptionCar ec){
-            message=ec.getMessage();
-            ec.printStackTrace();
-        }catch(Exception e){
             message="error";
             e.printStackTrace();
         }

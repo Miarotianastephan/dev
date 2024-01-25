@@ -2,7 +2,7 @@ package com.dev.body;
 
 public class InfoCar {
     String nomvoiture;
-    int nbplace;
+    int nbplace ;
     int idmarque;
     int idcarburant;
     int idmodel;

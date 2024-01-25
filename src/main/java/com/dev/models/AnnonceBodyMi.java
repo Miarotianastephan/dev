@@ -1,6 +1,6 @@
 package com.dev.models;
 import java.sql.Date;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 // ---statusvente : 0 : vendu /10 : non vendu
@@ -11,7 +11,7 @@ public class AnnonceBodyMi{
     String descriptions; 
     String statusvente; //vendu / disponible
     String etat;//valider /refuser/ encours
-    LocalDateTime dateannonce; 
+    Timestamp dateannonce; 
     int idlieu; 
     String nomlieu; 
     int idvoitureinfo; 
@@ -19,6 +19,7 @@ public class AnnonceBodyMi{
     int nombreplace; 
     double kilometrage; 
     int transmission; 
+    String nomtransmission;
     double vitesse; 
     int iduser; 
     String nomuser; 
@@ -32,6 +33,7 @@ public class AnnonceBodyMi{
     // int idcategorie; 
     // String nomcategorie; 
     List<Categorie> categories;
+    int anneefab;
     Date datevente; //null raha mbola tsy vendu
     Date datemodifstatus; //null reha mbola tsy vendu
     boolean estfavoris;
@@ -40,10 +42,10 @@ public class AnnonceBodyMi{
     public AnnonceBodyMi(){ }
     
     public AnnonceBodyMi(int idannonce, double prixvente, String descriptions, String statusvente, String etat,
-            LocalDateTime dateannonce, int idlieu, String nomlieu, int idvoitureinfo, String nomvoiture,
-            int nombreplace, double kilometrage, int transmission, double vitesse, int iduser, String nomuser,
+            Timestamp dateannonce, int idlieu, String nomlieu, int idvoitureinfo, String nomvoiture,
+            int nombreplace, double kilometrage, int transmission, String nomtransmission, double vitesse, int iduser, String nomuser,
             String prenomuser, int idcarburant, String nomcarburant, int idmarque, String nommarque, int idmodel,
-            String nommodel, List<Categorie> categories, Date datevente, Date datemodifstatus, boolean estfavoris,List<String> photos) {
+            String nommodel, List<Categorie> categories,int anneefab, Date datevente, Date datemodifstatus, boolean estfavoris,List<String> photos) {
         this.idannonce = idannonce;
         this.prixvente = prixvente;
         this.descriptions = descriptions;
@@ -57,6 +59,7 @@ public class AnnonceBodyMi{
         this.nombreplace = nombreplace;
         this.kilometrage = kilometrage;
         this.transmission = transmission;
+        this.nomtransmission= nomtransmission;
         this.vitesse = vitesse;
         this.iduser = iduser;
         this.nomuser = nomuser;
@@ -68,6 +71,7 @@ public class AnnonceBodyMi{
         this.idmodel = idmodel;
         this.nommodel = nommodel;
         this.categories = categories;
+        this.anneefab=anneefab;
         this.datevente = datevente;
         this.datemodifstatus = datemodifstatus;
         this.estfavoris = estfavoris;
@@ -104,10 +108,10 @@ public class AnnonceBodyMi{
     public void setEtat(String etat) {
         this.etat = etat;
     }
-    public LocalDateTime getDateannonce() {
+    public Timestamp getDateannonce() {
         return dateannonce;
     }
-    public void setDateannonce(LocalDateTime dateannonce) {
+    public void setDateannonce(Timestamp dateannonce) {
         this.dateannonce = dateannonce;
     }
     public int getIdlieu() {
@@ -151,6 +155,12 @@ public class AnnonceBodyMi{
     }
     public void setTransmission(int transmission) {
         this.transmission = transmission;
+    }
+    public String getNomtransmission() {
+        return nomtransmission;
+    }
+    public void setNomtransmission(String nomtransmission) {
+        this.nomtransmission = nomtransmission;
     }
     public double getVitesse() {
         return vitesse;
@@ -218,6 +228,12 @@ public class AnnonceBodyMi{
     public void setCategories(List<Categorie> categories) {
         this.categories = categories;
     }
+    public int getAnneefab() {
+        return anneefab;
+    }
+    public void setAnneefab(int anneefab) {
+        this.anneefab = anneefab;
+    }
     public Date getDatevente() {
         return datevente;
     }
@@ -261,20 +277,20 @@ public class AnnonceBodyMi{
                 idcNow=adtemp.getIdcategorie();
                 abtemp=new AnnonceBodyMi(
                     adtemp.getIdannonce(), adtemp.getPrixvente(), adtemp.getDescriptions(), adtemp.getStatusventeString(), adtemp.getEtatString(), adtemp.getDateannonce(), 
-                    adtemp.getIdlieu(), adtemp.getNomlieu(), adtemp.getIdvoitureinfo(), adtemp.getNomvoiture(), adtemp.getNombreplace(), adtemp.getKilometrage(), adtemp.getTransmission(),
+                    adtemp.getIdlieu(), adtemp.getNomlieu(), adtemp.getIdvoitureinfo(), adtemp.getNomvoiture(), adtemp.getNombreplace(), adtemp.getKilometrage(), adtemp.getTransmission(),adtemp.getNomtransmission(),
                     adtemp.getVitesse(), adtemp.getIduser(), adtemp.getNomuser(), adtemp.getPrenomuser(), adtemp.getIdcarburant(), adtemp.getNomcarburant(), adtemp.getIdmarque(), adtemp.getNommarque(), 
-                    adtemp.getIdmodel(), adtemp.getNommodel(),null,  adtemp.getDatevente(), adtemp.getDatemodifstatus(), adtemp.estfavoris(),null
+                    adtemp.getIdmodel(), adtemp.getNommodel(),null,adtemp.getAnneefab(),  adtemp.getDatevente(), adtemp.getDatemodifstatus(), adtemp.estfavoris(),null
                     );
                 lc.add( new Categorie(adtemp.getIdcategorie(), adtemp.getNomcategorie()) );
             }
             if(idaNow==adtemp.getIdannonce()){ //raha mbola mitovy le annonce
-                if(p==0){//le vo manomboka @ idannonce de ampidirina aloha le voalohany
-                    lph.add(adtemp.getPhoto());                    
-                }
                 if(idcNow!=adtemp.getIdcategorie()){ 
                     lc.add( new Categorie(adtemp.getIdcategorie(), adtemp.getNomcategorie()) );
                     idcNow=adtemp.getIdcategorie();
                     p=1;
+                }
+                if(p==0){//le vo manomboka @ idannonce de ampidirina aloha le voalohany
+                    lph.add(adtemp.getPhoto());                    
                 }
             }else{
                 p=0;
@@ -285,9 +301,9 @@ public class AnnonceBodyMi{
                 lph=new ArrayList<String>(); //de creerna ndray ny photo asina an'le photo an'le annonce manaraka
                 abtemp=new AnnonceBodyMi(
                     adtemp.getIdannonce(), adtemp.getPrixvente(), adtemp.getDescriptions(), adtemp.getStatusventeString(), adtemp.getEtatString(), adtemp.getDateannonce(), 
-                    adtemp.getIdlieu(), adtemp.getNomlieu(), adtemp.getIdvoitureinfo(), adtemp.getNomvoiture(), adtemp.getNombreplace(), adtemp.getKilometrage(), adtemp.getTransmission(),
+                    adtemp.getIdlieu(), adtemp.getNomlieu(), adtemp.getIdvoitureinfo(), adtemp.getNomvoiture(), adtemp.getNombreplace(), adtemp.getKilometrage(), adtemp.getTransmission(),adtemp.getNomtransmission(),
                     adtemp.getVitesse(), adtemp.getIduser(), adtemp.getNomuser(), adtemp.getPrenomuser(), adtemp.getIdcarburant(), adtemp.getNomcarburant(), adtemp.getIdmarque(), adtemp.getNommarque(), 
-                    adtemp.getIdmodel(), adtemp.getNommodel(),null,  adtemp.getDatevente(), adtemp.getDatemodifstatus(), adtemp.estfavoris(),null
+                    adtemp.getIdmodel(), adtemp.getNommodel(),null,  adtemp.getAnneefab(),adtemp.getDatevente(), adtemp.getDatemodifstatus(), adtemp.estfavoris(),null
                     );
                 lc.add( new Categorie(adtemp.getIdcategorie(), adtemp.getNomcategorie()) );
                 lph.add(adtemp.getPhoto()); 
@@ -295,6 +311,10 @@ public class AnnonceBodyMi{
                 idcNow=adtemp.getIdcategorie();
             }
         }
+        abtemp.setCategories(lc); //apidirina ao @ zay le categorie avy nangonona
+        abtemp.setPhotos(lph);  //apidirina ao @ zay le photo avy nangonona
+        lstab.add(abtemp); //atsofoka ao @ le liste AnnonceBodyMi amzay
         return lstab;
     }
+    
 }

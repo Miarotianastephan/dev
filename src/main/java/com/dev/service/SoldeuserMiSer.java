@@ -7,6 +7,7 @@ import com.dev.exception.ExceptionCar;
 import com.dev.models.SoldeuserMi;
 import com.dev.repository.SoldeuserMiRep;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -43,7 +44,7 @@ public class SoldeuserMiSer {
         if(soldeuserMi==null){
             SoldeuserMi soldeuserMi2=new SoldeuserMi();
             soldeuserMi2.setSolde(0);
-            soldeuserMi2.setDateupdate(LocalDateTime.now());
+            soldeuserMi2.setDateupdate(Timestamp.valueOf(LocalDateTime.now()) );
             soldeuserMi2.setIduser(iduser);
             save(soldeuserMi2);
         }else{ throw new ExceptionCar("compte pour cette user existe deja"); }

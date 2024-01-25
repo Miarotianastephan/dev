@@ -11,7 +11,7 @@ public class MotifMi{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int idmotif; 
     String nommotif; 
-    int codemotif; 
+    String codemotif; 
 
     public MotifMi(){ }
     
@@ -27,11 +27,12 @@ public class MotifMi{
     public void setNommotif(String nommotif){
         this.nommotif=nommotif;
     }
-    public int getCodemotif(){
+    public String getCodemotif(){
         return this.codemotif;
     }
-    public void setCodemotif(int codemotif){
+    public void setCodemotif(String codemotif){
         this.codemotif=codemotif;
     }
+    
 
 }
