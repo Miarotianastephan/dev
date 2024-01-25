@@ -4,7 +4,6 @@ import java.util.Hashtable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,10 +29,6 @@ public class AdminMiController {
     private AnnoncedetailMi_vSer annoncedetailMi_vSer;
     @Autowired
     private AnnoncefavorisMiSer annoncefavorisMiSer;
-    @Autowired
-    
-    @Value("${file.path}")
-    private String imageDirectory;
 
     @GetMapping(path = "/hello" , produces = "application/json")
     public String getHello(){

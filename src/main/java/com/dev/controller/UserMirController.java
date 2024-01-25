@@ -4,7 +4,6 @@ import java.util.Hashtable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,9 +40,7 @@ public class UserMirController {
     private CreditersoldeuserMiSer creditersoldeuserMiSer;
     @Autowired
     private SoldeuserMiSer soldeuserMiSer;
-    
-    @Value("${file.path}")
-    private String imageDirectory;
+
 
     @GetMapping(path = "/hello" , produces = "application/json")
     public String getHello(){
