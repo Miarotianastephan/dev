@@ -33,8 +33,6 @@ public class MessageController {
         String email= jwtService.extractUserMail(headers.get("authorization").substring(7));
         User userSend=userService.findByEmail(email).get();
         User userReceive=userService.findById(idReceive).get();
-        // return email;
-        // return userSend;
         return userService.envoyerMessage(userSend, userReceive, contenu, Timestamp.valueOf(LocalDateTime.now()));
     }
 
@@ -45,5 +43,13 @@ public class MessageController {
         User userReceive=userService.findById(idReceive).get();
         System.out.println("users : "+userSend+" "+userReceive);
         return userService.findByUserSendAndUserReceive(userSend, userReceive);
+    }
+
+    @GetMapping(path = "/allUserDiscuss")
+    public List<User> getAllPersonneDiscuss(@RequestHeader Map<String, String> headers) {
+        String email= jwtService.extractUserMail(headers.get("authorization").substring(7));
+        User user=userService.findByEmail(email).get();
+        System.out.println(user);
+        return userService.findDistinctUsersForUser(user);
     }
 }

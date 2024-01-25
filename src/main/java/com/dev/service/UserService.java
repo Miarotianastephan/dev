@@ -16,4 +16,6 @@ public interface UserService {
     public Message envoyerMessage(User userSend, User userReceive, String contenu, Timestamp dateTime) throws Exception;
 
     public List<Message> findByUserSendAndUserReceive(User userSend, User userReceive);
+
+    public List<User> findDistinctUsersForUser(User user);
 }

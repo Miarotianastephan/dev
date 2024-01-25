@@ -28,8 +28,10 @@ public class SecurityConfig {
             .csrf()
             .disable()
             .authorizeHttpRequests()
-            .requestMatchers("/api/v1/auth/**")
-            .permitAll()
+            .requestMatchers("/categorie/**").permitAll()
+            .requestMatchers("/model/**").permitAll()
+            .requestMatchers("/marque/**").permitAll()
+            .requestMatchers("/api/v1/auth/**").permitAll()
             .anyRequest() //Toute autre 
             .authenticated()
             .and()

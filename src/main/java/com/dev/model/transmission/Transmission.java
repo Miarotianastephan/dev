@@ -1,4 +1,4 @@
-package com.dev.model.categorie;
+package com.dev.model.transmission;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,17 +12,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "categorie")
+@Table(name = "transmission")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Categorie {
+public class Transmission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idcategorie", nullable = false, columnDefinition = "INTEGER")
-    Integer idCategorie;
-
-    @Column(name = "nomcategorie", columnDefinition = "VARCHAR(50)", unique = true)
-    String nomCategorie;    
+    @Column(name = "idtransmission", nullable = false, columnDefinition = "INTEGER")
+    int idTransmission;
+    @Column(name = "nomtransmission", nullable = false, columnDefinition = "VARCHAR(50)")
+    String nomTransmission;
 }

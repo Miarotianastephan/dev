@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 import com.dev.model.marque.Marque;
+import com.dev.model.transmission.Transmission;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,8 +35,9 @@ public class Model {
     String nomModel;
     @Column(name = "vitesse", nullable = false, columnDefinition = "DOUBLE PRECISION")
     double vitesse;
-    @Column(name = "transmission", nullable = false, columnDefinition = "INTEGER")
-    int transmission;
+    @ManyToOne
+    @JoinColumn(name = "idtransmission", nullable = false, columnDefinition = "INTEGER")
+    Transmission transmission;
     @Column(name = "datesortie", nullable = false, columnDefinition = "DATE")
     Date dateSortie;
     @ManyToOne

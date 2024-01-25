@@ -1,5 +1,6 @@
 package com.dev.controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,15 +29,19 @@ public class ModelController {
     public Model insertModel(@RequestBody Model model) {
         System.out.println(model.getListeModelCategorie());
         return modelService.save(model);
-        // return model;
     }
 
     @PostMapping("/updateModel")
-    public Model updateModel(@RequestParam int idModel, @RequestParam String nomModel) {
-        return modelService.update(idModel, nomModel);
+    public Model updateModel(@RequestParam int idModel, @RequestParam String nomModel, @RequestParam double vitesse, @RequestParam int idTransmission, @RequestParam Date dateSortie, @RequestParam int idMarque) {
+        return modelService.update(idModel, nomModel, vitesse, idTransmission, dateSortie, idMarque);
     }
 
-    @PostMapping("/deleteModel")
+    @GetMapping("/findModelById")
+    public Model findModelById(@RequestParam int idModel) {
+        return modelService.findModelById(idModel).get();
+    }
+
+    @GetMapping("/deleteModel")
     public void deleteModel(@RequestParam int idModel) {
         modelService.delete(idModel);
     }

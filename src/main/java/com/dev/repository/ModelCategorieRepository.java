@@ -12,4 +12,6 @@ import com.dev.model.categorie.Categorie;
 
 public interface ModelCategorieRepository extends JpaRepository<ModelCategorie, Integer> {
     public List<ModelCategorie> findByCategorieAndModel(Categorie categorie, Model model);
+
+    public void deleteByModel(Model model);
 }

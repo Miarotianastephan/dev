@@ -9,13 +9,14 @@ CREATE TABLE admins(
    UNIQUE(mail)
 );
 
+
 CREATE TABLE users(
    iduser SERIAL,
    nomuser VARCHAR(50) ,
    prenomuser VARCHAR(50) ,
    mail VARCHAR(50) ,
    nee DATE,
-   pwd TEXT,
+   pwd VARCHAR(50) ,
    PRIMARY KEY(iduser),
    UNIQUE(mail)
 );
@@ -25,17 +26,49 @@ CREATE TABLE marque(
    nommarque VARCHAR(50) ,
    PRIMARY KEY(idmarque)
 );
+CREATE TABLE carburant(
+   idcarburant SERIAL,
+   nomcarburant VARCHAR(50) ,
+   PRIMARY KEY(idcarburant)
+);
+CREATE TABLE models(
+   idmodel SERIAL,
+   nommodel VARCHAR(50) ,
+   idmarque int REFERENCES marque (idmarque),
+   transmission int REFERENCES transmission(idtransmission),
+   anneefab int check(anneefab>0),
+   vitesse DOUBLE PRECISION check (vitesse>0),
+   idcarburant int REFERENCES carburant (idcarburant),
+   PRIMARY KEY(idmodel)
+);
 
 CREATE TABLE categorie(
    idcategorie SERIAL,
    nomcategorie VARCHAR(50) ,
    PRIMARY KEY(idcategorie)
 );
+create table transmission(
+   idtransmission SERIAL primary key,
+   nomtransmission VARCHAR unique
+);
+CREATE TABLE modelcategorie(
+   idmodelcategorie SERIAL PRIMARY KEY,
+   idmodel INTEGER,
+   idcategorie INTEGER,
+   FOREIGN KEY(idmodel) REFERENCES models(idmodel),
+   FOREIGN KEY(idcategorie) REFERENCES categorie(idcategorie)
+);
 
-CREATE TABLE carburant(
-   idcarburant SERIAL,
-   nomcarburant VARCHAR(50) ,
-   PRIMARY KEY(idcarburant)
+CREATE TABLE voitureinfo(
+   idvoitureinfo SERIAL,
+   nomvoiture VARCHAR(50) ,
+   nombreplace INTEGER,
+   kilometrage DOUBLE PRECISION,
+   iduser INTEGER NOT NULL,
+   idmodel INTEGER NOT NULL,
+   PRIMARY KEY(idvoitureinfo),
+   FOREIGN KEY(iduser) REFERENCES users(iduser),
+   FOREIGN KEY(idmodel) REFERENCES models(idmodel)
 );
 
 CREATE TABLE lieu(
@@ -44,20 +77,8 @@ CREATE TABLE lieu(
    PRIMARY KEY(idlieu)
 );
 
-CREATE TABLE messages(
-   idmessages SERIAL,
-   nomsend VARCHAR(50) ,
-   prenomsend VARCHAR(50) ,
-   nomreceive VARCHAR(50) ,
-   prenomreceive VARCHAR(50) ,
-   contenu TEXT,
-   typemessage INTEGER,
-   datehmsg TIMESTAMP,
-   idusersend INTEGER NOT NULL,
-   iduserreceive INTEGER,
-   PRIMARY KEY(idmessages)
-);
-
+----0 dispo 
+---select * from tokenuser where iduser='' and etats=0;-->throw new ExceptionCar("session plus valide");
 CREATE TABLE tokenuser(
    idtokenuser SERIAL,
    token TEXT,
@@ -93,62 +114,13 @@ CREATE TABLE valeurcredit(
    UNIQUE(valeur)
 );
 
+
 CREATE TABLE motif(
    idmotif SERIAL,
    nommotif VARCHAR(50) ,
-   codemotif INTEGER,
+   codemotif VARCHAR(30),
    PRIMARY KEY(idmotif),
    UNIQUE(codemotif)
-);
-
-CREATE TABLE regletaux(
-   idregletaux SERIAL,
-   coderegle VARCHAR(50) ,
-   nomregle VARCHAR(50) ,
-   tauxpourcent INTEGER,
-   PRIMARY KEY(idregletaux)
-);
-
-CREATE TABLE transmission(
-   idtransmission SERIAL,
-   nomtransmission VARCHAR(50)  NOT NULL,
-   PRIMARY KEY(idtransmission),
-   UNIQUE(nomtransmission)
-);
-
-CREATE TABLE models(
-   idmodel SERIAL,
-   nommodel VARCHAR(50) ,
-   vitesse DOUBLE PRECISION NOT NULL,
-   datesortie DATE NOT NULL,
-   idtransmission INTEGER NOT NULL,
-   idmarque INTEGER NOT NULL,
-   idcarburant INTEGER NOT NULL,
-   PRIMARY KEY(idmodel),
-   FOREIGN KEY(idtransmission) REFERENCES transmission(idtransmission),
-   FOREIGN KEY(idmarque) REFERENCES marque(idmarque),
-   FOREIGN KEY(idcarburant) REFERENCES carburant(idcarburant)
-);
-
-ALTER table models add column idcarburant int REFERENCES carburant(idcarburant);
-
-CREATE TABLE voitureinfo(
-   idvoitureinfo SERIAL,
-   nomvoiture VARCHAR(50) ,
-   nombreplace INTEGER,
-   kilometrage DOUBLE PRECISION,
-   idtransmission INTEGER,
-   vitesse DOUBLE PRECISION,
-   iduser INTEGER NOT NULL,
-   idcarburant INTEGER NOT NULL,
-   idmarque INTEGER NOT NULL,
-   idmodel INTEGER NOT NULL,
-   PRIMARY KEY(idvoitureinfo),
-   FOREIGN KEY(iduser) REFERENCES users(iduser),
-   FOREIGN KEY(idcarburant) REFERENCES carburant(idcarburant),
-   FOREIGN KEY(idmarque) REFERENCES marque(idmarque),
-   FOREIGN KEY(idtransmission) REFERENCES transmission(idtransmission),
-   FOREIGN KEY(idmodel) REFERENCES models(idmodel)
 );
 
 CREATE TABLE annonce(
@@ -157,23 +129,23 @@ CREATE TABLE annonce(
    descriptions VARCHAR(200) ,
    statusvente INTEGER,
    etat INTEGER,
-   dateannonce TIMESTAMP,
    idlieu INTEGER NOT NULL,
    idvoitureinfo INTEGER NOT NULL,
+   dateannonce TIMESTAMP,
    PRIMARY KEY(idannonce),
    UNIQUE(idvoitureinfo),
    FOREIGN KEY(idlieu) REFERENCES lieu(idlieu),
    FOREIGN KEY(idvoitureinfo) REFERENCES voitureinfo(idvoitureinfo)
 );
-
+---statusvente : 0 : vendu /10 : non vendu
+---etat : 0:encour demande / 10 :accepter / 20: refuser
 CREATE TABLE annoncephoto(
    idannoncephoto SERIAL,
-   photo VARCHAR(200) ,
+   photo TEXT ,
    idannonce INTEGER NOT NULL,
    PRIMARY KEY(idannoncephoto),
    FOREIGN KEY(idannonce) REFERENCES annonce(idannonce)
 );
-
 CREATE TABLE vendu(
    idvendu SERIAL,
    datevente DATE,
@@ -194,6 +166,8 @@ CREATE TABLE annoncevalidation(
    FOREIGN KEY(idadmins) REFERENCES admins(idadmins),
    FOREIGN KEY(idannonce) REFERENCES annonce(idannonce)
 );
+
+
 
 CREATE TABLE annoncefavoris(
    idannoncefavoris SERIAL,
@@ -217,7 +191,7 @@ CREATE TABLE annoncerefus(
 
 CREATE TABLE debitersoldeuser(
    iddebit SERIAL,
-   montantd DOUBLE PRECISION,
+   montantd DOUBLE PRECISION ,
    dated TIMESTAMP,
    idmotif INTEGER NOT NULL,
    idsoldeuser INTEGER NOT NULL,
@@ -225,6 +199,7 @@ CREATE TABLE debitersoldeuser(
    FOREIGN KEY(idmotif) REFERENCES motif(idmotif),
    FOREIGN KEY(idsoldeuser) REFERENCES soldeuser(idsoldeuser)
 );
+
 
 CREATE TABLE creditersoldesite(
    idcredit SERIAL,
@@ -240,6 +215,7 @@ CREATE TABLE creditersoldesite(
    FOREIGN KEY(Idsoldesite) REFERENCES soldesite(Idsoldesite)
 );
 
+--etats:0 disponible / etats:1 plus disponible
 CREATE TABLE codecredit(
    idcodecredit SERIAL,
    code INTEGER,
@@ -262,21 +238,40 @@ CREATE TABLE creditersoldeuser(
 );
 
 CREATE TABLE categorievoiture(
+   idcategorievoiture SERIAL,
    idcategorie INTEGER,
    idvoitureinfo INTEGER,
-   PRIMARY KEY(idcategorie, idvoitureinfo),
+   PRIMARY KEY(idcategorievoiture),
    FOREIGN KEY(idcategorie) REFERENCES categorie(idcategorie),
    FOREIGN KEY(idvoitureinfo) REFERENCES voitureinfo(idvoitureinfo)
+); 
+--------coderege: C000 -->commission
+CREATE TABLE regletaux(
+   idregletaux SERIAL,
+   coderegle VARCHAR(50) ,
+   nomregle VARCHAR(50) ,
+   tauxpourcent float,
+   PRIMARY KEY(idregletaux)
+);
+---------------------------NON RELATIONNEL
+CREATE TABLE messages(
+   idmessages SERIAL,
+   nomsend VARCHAR(50) ,
+   prenomsend VARCHAR(50) ,
+   nomreceive VARCHAR(50) ,
+   prenomreceive VARCHAR(50),
+   contenu TEXT,
+   typemessage INTEGER,
+   datehmsg TIMESTAMP,
+   idusersend INTEGER NOT NULL,
+   iduserreceive INTEGER NOT NULL
 );
 
-CREATE TABLE modelcategorie(
-   idmodel INTEGER,
-   idcategorie INTEGER,
-   PRIMARY KEY(idmodel, idcategorie),
-   FOREIGN KEY(idmodel) REFERENCES models(idmodel),
-   FOREIGN KEY(idcategorie) REFERENCES categorie(idcategorie)
-);
+select ad_v.*, af.idannoncefavoris from annoncedetail_v as ad_v 
+left join annoncefavoris as af on (ad_v.idannonce=af.idannonce and af.iduser= :iduser) 
+where ad_v.iduser!= :iduser and ad_v.statusvente=10 and ad_v.etat=10 
+order by ad_v.idannonce ASC,ad_v.idcategorie ASC,ad_v.idannoncephoto ASC,ad_v.dateannonce ASC;
 
-
-ALTER TABLE models
-DROP CONSTRAINT nom_contrainte_fk; 
+select * from modelcategorie as mc 
+join models as m on m.idmodel=mc.idmodel
+join categorie as c on c.idcategorie=mc.idcategorie order by m.idmodel;

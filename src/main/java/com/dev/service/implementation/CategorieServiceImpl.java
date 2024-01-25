@@ -46,4 +46,9 @@ public class CategorieServiceImpl implements CategorieService {
 		}
 		return categorieRepository.findAllById(idCategories);
 	}
+
+	@Override
+	public Optional<Categorie> findById(int idCategorie) {
+		return categorieRepository.findById(idCategorie);
+	}
 }

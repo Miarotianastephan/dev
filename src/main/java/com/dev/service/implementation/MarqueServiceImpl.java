@@ -1,6 +1,7 @@
 package com.dev.service.implementation;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -36,4 +37,9 @@ public class MarqueServiceImpl implements MarqueService {
 	public void delete(int idMarque) {
 		marqueRepository.deleteById(idMarque);
 	}
+
+    @Override
+    public Optional<Marque> findById(int idMarque) {
+        return marqueRepository.findById(idMarque);
+    }
 }
