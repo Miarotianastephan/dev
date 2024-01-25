@@ -80,18 +80,6 @@ CREATE TABLE lieu(
    PRIMARY KEY(idlieu)
 );
 
-----0 dispo 
----select * from tokenuser where iduser='' and etats=0;-->throw new ExceptionCar("session plus valide");
-CREATE TABLE tokenuser(
-   idtokenuser SERIAL,
-   token TEXT,
-   datedebut TIMESTAMP,
-   dateexp TIMESTAMP,
-   etats INTEGER,
-   iduser INTEGER NOT NULL,
-   PRIMARY KEY(idtokenuser),
-   FOREIGN KEY(iduser) REFERENCES users(iduser)
-);
 
 CREATE TABLE soldeuser(
    idsoldeuser SERIAL,
@@ -256,25 +244,12 @@ CREATE TABLE regletaux(
    tauxpourcent float,
    PRIMARY KEY(idregletaux)
 );
----------------------------NON RELATIONNEL
-CREATE TABLE messages(
-   idmessages SERIAL,
-   nomsend VARCHAR(50) ,
-   prenomsend VARCHAR(50) ,
-   nomreceive VARCHAR(50) ,
-   prenomreceive VARCHAR(50),
-   contenu TEXT,
-   typemessage INTEGER,
-   datehmsg TIMESTAMP,
-   idusersend INTEGER NOT NULL,
-   iduserreceive INTEGER NOT NULL
-);
 
-select ad_v.*, af.idannoncefavoris from annoncedetail_v as ad_v 
-left join annoncefavoris as af on (ad_v.idannonce=af.idannonce and af.iduser= :iduser) 
-where ad_v.iduser!= :iduser and ad_v.statusvente=10 and ad_v.etat=10 
-order by ad_v.idannonce ASC,ad_v.idcategorie ASC,ad_v.idannoncephoto ASC,ad_v.dateannonce ASC;
+-- select ad_v.*, af.idannoncefavoris from annoncedetail_v as ad_v 
+-- left join annoncefavoris as af on (ad_v.idannonce=af.idannonce and af.iduser= :iduser) 
+-- where ad_v.iduser!= :iduser and ad_v.statusvente=10 and ad_v.etat=10 
+-- order by ad_v.idannonce ASC,ad_v.idcategorie ASC,ad_v.idannoncephoto ASC,ad_v.dateannonce ASC;
 
-select * from modelcategorie as mc 
-join models as m on m.idmodel=mc.idmodel
-join categorie as c on c.idcategorie=mc.idcategorie order by m.idmodel;
+-- select * from modelcategorie as mc 
+-- join models as m on m.idmodel=mc.idmodel
+-- join categorie as c on c.idcategorie=mc.idcategorie order by m.idmodel;

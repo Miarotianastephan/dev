@@ -34,9 +34,6 @@ create or replace view annoncenbrepeat_v as
       select idannonce,iduser,statusvente,etat,count(idannonce) as nbrepeat from annoncedetail_v
       group by idannonce,iduser,statusvente,etat;
 
-create or replace view annoncenbrepeat2_v as
-      select idannonce,iduser,statusvente,etat,count(idannonce) as nbrepeat from annoncedetail_v
-      group by idannonce,iduser,statusvente,etat;
 
 --pub a part mes pubs, non vendu , deja accepter
 --LIMIT 6 OFFSET 5; --->le 5e ligne tsy asehony , de manomboka eo @ ]5, ...6 ligne ambony]
@@ -56,67 +53,13 @@ create or replace view codecredit_v as
 -- ALTER COLUMN photo TYPE text;
 
 
-select ad_v.*, af.idannoncefavoris from annoncedetail_v as ad_v 
-left join annoncefavoris as af 
-      on (ad_v.idannonce=af.idannonce and af.iduser='iduserconnect') 
-where ad_v.iduser!=1 
-      and ad_v.statusvente=10 
-      and ad_v.etat=10 
-order by ad_v.idannonce ASC,
-      ad_v.idcategorie ASC,
-      ad_v.dateannonce ASC 
-LIMIT 6 OFFSET 6;
-
-
-
-
-select a.* from annonce as a join voitureinfo as vif on a.idannonce=vif.idannonce where a.idannonce= and vif.iduser=
-
-select ad_v.*, af.idannoncefavoris from annoncedetail_v as ad_v left join annoncefavoris as af on (ad_v.idannonce=af.idannonce and af.iduser= :iduser) 
-where ad_v.iduser!= :iduser
-ad_v.dateannonce ASC
-LIMIT :nbaffiche OFFSET :numlineBeforeFirst
-
-    -- select
-    --         ad_v.etat,
-    --      ad_v.statusvente,
-    --     ad_v.datevente ,
-    --     ad_v.datemodifstatus,
-    --     ad_v.idannoncephoto,
-    --     ad_v.idannonce,
-    --     ad_v.idcategorie,
-    --     ad_v.idannoncephoto
-    -- from
-    --     annoncedetail_v as ad_v
-    -- left join
-    --     annoncefavoris as af
-    --         on (ad_v.idannonce=af.idannonce
-    --         and af.iduser= 2)
-    -- where
-    --     ad_v.iduser!= 2
-    --     and ad_v.statusvente=10
-    --     and ad_v.etat=10
-    -- order by
-    --     ad_v.idannonce ASC,
-    --     ad_v.idcategorie ASC,
-    --     ad_v.idannoncephoto ASC,
-    --     ad_v.dateannonce ASC
-    -- LIMIT
-    --     4
-    -- OFFSET
-    --     0
-
-    select a.* from annonce as a join voitureinfo as vif on a.idannonce=vif.idannonce where a.idannonce= ? and vif.iduser= ? and a.statusvente=10 and a.etat=10
-
-
-    select
-        ad_v.*,
-        0 as idannoncefavoris
-    from
-        annoncedetail_v as ad_v
-        join (select * from annoncenbrepeat_v where etat=0 limit 2 OFFSET 2) as ar_v on ad_v.idannonce=ar_v.idannonce
-    order by
-        ad_v.idannonce ASC,
-        ad_v.idcategorie ASC,
-        ad_v.idannoncephoto ASC,
-        ad_v.dateannonce ASC
+-- select ad_v.*, af.idannoncefavoris from annoncedetail_v as ad_v 
+-- left join annoncefavoris as af 
+--       on (ad_v.idannonce=af.idannonce and af.iduser='iduserconnect') 
+-- where ad_v.iduser!=1 
+--       and ad_v.statusvente=10 
+--       and ad_v.etat=10 
+-- order by ad_v.idannonce ASC,
+--       ad_v.idcategorie ASC,
+--       ad_v.dateannonce ASC 
+-- LIMIT 6 OFFSET 6;
