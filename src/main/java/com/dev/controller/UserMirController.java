@@ -26,8 +26,8 @@ import com.dev.service.SoldeuserMiSer;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/mir")
-public class MirController {
+@RequestMapping("/api/usermir")
+public class UserMirController {
     
     @Autowired
     private VoitureinfoMiSer voitureinfoMiSer;
@@ -117,71 +117,7 @@ public class MirController {
         }
         return response;
     }
-    //Mandeha
-    @GetMapping("/getAnnoncesNonValider")
-    public Hashtable <String,Object> getAnnoncesNonValider(@RequestParam int nbaffiche,@RequestParam int numlinebeforefirst) {
-        Hashtable <String,Object> response=new Hashtable<>();
-        try{
-            List<AnnoncedetailMi_v> lstA= annoncedetailMi_vSer.getAllEncoursByNbafficheByNumlineBeforFirst(nbaffiche,numlinebeforefirst );
-            List<AnnonceBodyMi> lstAB=new AnnonceBodyMi().createListByListAnnoncedetailMi_v(lstA);
-            response.put("status",200);
-            response.put("message","ok");
-            if(lstAB!=null){if(lstAB.isEmpty()==false){
-                response.put("data",lstAB);
-            }}
-        }catch(Exception e){
-            e.printStackTrace();
-            response.put("status",500);
-            response.put("message","error");
-            response.put("cause",e.getMessage());
-        }
-        
-        return response;
-    }
 
-    //Mandeha
-    @GetMapping("/validerAnnonce")
-    public Hashtable <String,Object> validerAnnonce( @RequestParam int idadmin,@RequestParam int idannonce) {   
-        Hashtable <String,Object> response=new Hashtable<>();
-        
-        try{
-            annonceMiSer.valider(idannonce,idadmin);
-            response.put("status",200);
-            response.put("message","succes");
-        }catch(ExceptionCar ec){
-            ec.printStackTrace();
-            response.put("status",500);
-            response.put("message",ec.getMessage());
-        }catch(Exception e){
-            e.printStackTrace();
-            response.put("status",500);
-            response.put("message","error");
-            response.put("cause",e.getMessage());
-        }
-        return response;
-    }
-
-    //Mandeha 
-    @GetMapping("/refuserAnnonce") 
-    public Hashtable <String,Object> refuserAnnonce( @RequestParam int idadmin,@RequestParam int idannonce) {  
-        Hashtable <String,Object> response=new Hashtable<>(); 
-        
-        try{
-          annonceMiSer.refuser(idannonce, idadmin);
-          response.put("status",200);
-          response.put("message","succes");
-        }catch(ExceptionCar ec){
-            ec.printStackTrace();
-            response.put("status",500);
-            response.put("message",ec.getMessage());
-        }catch(Exception e){
-            e.printStackTrace();
-            response.put("status",500);
-            response.put("message","error");
-            response.put("cause",e.getMessage());
-        }
-        return response;
-    }
     //Mandeha  
     @GetMapping(path="/getPubAnnoces",produces = "application/json") //les annonces sauf mes annonces
     public Hashtable<String,Object> getPubAnnoces( @RequestParam int iduser,@RequestParam int nbaffiche,@RequestParam int numlinebeforefirst) {
@@ -284,25 +220,7 @@ public class MirController {
         }
         return response;
     }
-    //-------------------recherche
-    @GetMapping("/searchOnNonValider")
-    public Hashtable <String,Object> searchOnNonValider( @RequestBody Search search) {
-        Hashtable <String,Object> response=new Hashtable<>(); 
-        try{
-            List<AnnoncedetailMi_v> lstA= annoncedetailMi_vSer.getSearchAllEncoursByNbafficheByNumlineBeforFirst(search.getNbaffiche(), search.getNumlineBeforeFirst(), search.getWord(), search.getIdmarque(), search.getIdmodel(), search.getIdcarburant(), search.getNbplace(), search.getPrix1(), search.getPrix2(), search.getIdcategories());
-            List<AnnonceBodyMi> lstAB=new AnnonceBodyMi().createListByListAnnoncedetailMi_v(lstA);
-            response.put("status",200);
-            response.put("message","ok");
-            if(lstAB!=null){if(lstAB.isEmpty()==false){
-                response.put("data",lstAB);
-            }}
-        }catch (Exception e){
-            e.printStackTrace();
-            response.put("status",500);
-            response.put("message",e.getMessage());
-        }
-        return response;
-    }
+    
     @GetMapping("/searchOnPubAnnonce") //les annonces sauf mes annonces
     public Hashtable <String,Object> searchOnPubAnnonce( @RequestBody Search search) {
         Hashtable <String,Object> response=new Hashtable<>(); 
