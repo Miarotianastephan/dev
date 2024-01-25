@@ -13,9 +13,6 @@ import com.dev.utils.TokenUtils;
 @Service
 public class UserServiceImpl implements UserService{
 
-    @Autowired
-    private TokenUtils tokenUtils;
-
     @Override
     public User loginUser(User user) {
         String mail = user.getMail();
