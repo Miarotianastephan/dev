@@ -28,7 +28,7 @@ public class SecurityConfig {
             .csrf()
             .disable()
             .authorizeHttpRequests()
-            .requestMatchers("/api/mir/**").permitAll()
+            .requestMatchers("/api/usermir/**").permitAll()
             .anyRequest() //Toute autre 
             .authenticated()
             .and()

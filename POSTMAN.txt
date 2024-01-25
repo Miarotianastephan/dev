@@ -2,20 +2,16 @@ http://localhost:3000/api/main/hello
 
 -------------------------------------------insertion voiture
 
-http://localhost:3000/api/mir/ajoutinfocar
+http://localhost:3000/api/usermir/ajoutinfocar
 {
-"nomvoiture":"Voiture Naka",
-"nbplace":5,
-"idmarque":1,
-"idcarburant":1,
-"idmodel":2,
-"anneefabrication":2011,
-"kilometrage":12000,
-"transmission":1,
-"idcategories":[1,4],
-"vitesse":200,
-"iduser":1
+"nomvoiture":"4L9LL",
+"nbplace":9,
+"kilometrage":55000,
+"iduser":2,
+"idmodel":1
 }
+
+
 -------------------------------------------creer compte solde
 http://localhost:3000/api/mir/creercompte?iduser=1
 
