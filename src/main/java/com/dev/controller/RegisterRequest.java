@@ -13,6 +13,8 @@ public class RegisterRequest {
     private String firstName;
     
     private String  lastname;
+
+    private String nee;
     
     private String  mail;
 

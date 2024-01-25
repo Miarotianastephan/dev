@@ -93,6 +93,7 @@ public class UserMirController {
         }
         return response;
     }
+    
     @PostMapping("/ajoutannonce2") 
     public Hashtable <String,Object> ajoutannonce2( @RequestParam int idvoitureinfo,@RequestParam int idlieu,@RequestParam double prixvente,@RequestParam String description,@RequestParam MultipartFile[] files) {
         Hashtable <String,Object> response=new Hashtable<>();
@@ -116,7 +117,7 @@ public class UserMirController {
     }
 
     //Mandeha  
-    @GetMapping(path="/getPubAnnoces",produces = "application/json") //les annonces sauf mes annonces
+    @GetMapping(path="/getPubAnnonces",produces = "application/json") //les annonces sauf mes annonces
     public Hashtable<String,Object> getPubAnnoces( @RequestParam int iduser,@RequestParam int nbaffiche,@RequestParam int numlinebeforefirst) {
         Hashtable <String,Object> response=new Hashtable<>();
         try{

@@ -28,7 +28,11 @@ public class SecurityConfig {
             .csrf()
             .disable()
             .authorizeHttpRequests()
-            .requestMatchers("/api/mir/**").permitAll()
+            .requestMatchers("/api/user/**").permitAll() // pour login et inscription
+            .requestMatchers("/api/adminmir/**").permitAll() // admin pour gestion back offic
+            // .requestMatchers(HttpMethod.GET , "/api/usermir/getMesAnnoces").hasAuthority
+            .requestMatchers(HttpMethod.GET , "/api/usermir/getPubAnnonces" ,"/api/usermir/searchOnPubAnnonce").permitAll()
+            // .requestMatchers(HttpMethod.POST , "/api/usermir/creditercompte").permitAll()
             .anyRequest() //Toute autre 
             .authenticated()
             .and()

@@ -3,6 +3,8 @@ package com.dev.controller;
 import com.dev.model.user.Role;
 import com.dev.model.user.User;
 
+import java.sql.Date;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,6 +31,7 @@ public class AuthenticationService {
         var user = User.builder()
             .nom(request.getFirstName())
             .prenom(request.getLastname())
+            .date(Date.valueOf(request.getNee()))
             .mail(request.getMail())
             .motdepasse(passwordEncoder.encode(request.getPassword()))
             .role(Role.USER)
@@ -41,12 +44,12 @@ public class AuthenticationService {
             .build();
     } 
 
+
     public AuthenticationResponse authenticate(AuthenticationRequest request){
         authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(request.getMail(), request.getPassword())
         );
-        var user = userRepository.findByMail(request.getMail())
-            .orElseThrow();
+        var user = userRepository.findByMail(request.getMail()).orElseThrow();
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
             .token(jwtToken)

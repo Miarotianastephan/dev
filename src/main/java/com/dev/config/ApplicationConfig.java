@@ -1,5 +1,6 @@
 package com.dev.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,12 +20,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ApplicationConfig {
 
-    private final UserRepository userRepository;
+    @Autowired
+    UserRepository userRepository;
     
     @Bean
     UserDetailsService userDetailsService(){
-        return username -> userRepository.findByMail(username)
-        .orElseThrow(() -> new UsernameNotFoundException("User noT Found"));
+        return username->userRepository.findByMail(username)
+        .orElseThrow(()->new UsernameNotFoundException("User noT Found"));
     }
 
     @Bean
