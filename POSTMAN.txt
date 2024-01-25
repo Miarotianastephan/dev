@@ -1,0 +1,100 @@
+http://localhost:3000/api/main/hello
+
+-------------------------------------------insertion voiture
+
+http://localhost:3000/api/mir/ajoutinfocar
+{
+"nomvoiture":"Voiture Naka",
+"nbplace":5,
+"idmarque":1,
+"idcarburant":1,
+"idmodel":2,
+"anneefabrication":2011,
+"kilometrage":12000,
+"transmission":1,
+"idcategories":[1,4],
+"vitesse":200,
+"iduser":1
+}
+-------------------------------------------creer compte solde
+http://localhost:3000/api/mir/creercompte?iduser=1
+
+-------------------------------------------creer annonce
+
+http://localhost:3000/api/mir/ajoutannonce
+{
+  "idvoitureinfo": 1,
+  "idlieu": 2,
+  "prixvente": 100000000,
+  "description": "mandeha tsara tsisy blem",
+
+}
+
+----------------voir publication non valide 
+http://localhost:3000/api/mir/getAnnoncesNonValider?nbaffiche=2&numlinebeforefirst=0
+
+----------------valider l'annonce
+http://localhost:3000/api/mir/validerAnnonce?idadmin=1&idannonce=4
+
+----------------refuser l'annonce
+
+----------------Liste annonce
+http://localhost:3000/api/mir/getPubAnnoces?iduser=2&nbaffiche=4&numlinebeforefirst=0
+
+----------------Liste mes annonces 
+http://localhost:3000/api/mir/getMesAnnoces?iduser=1&nbaffiche=4&numlinebeforefirst=0
+
+----------------to favoris
+http://localhost:3000/api/mir/toFavoris?iduser=2&idannonce=4
+
+----------------crediter compte :
+http://localhost:3000/api/mir/creditercompte?iduser=1&code=10000021
+
+----------------changer status 
+http://localhost:3000/api/mir/changerStatusAnnonce?iduser=1&idannonce=4&datevente=2024-01-13
+
+------------------recherche sur NonValider
+http://localhost:3000/api/mir/searchOnNonValider
+{
+"iduser":1,
+"nbaffiche":4,
+"numlineBeforeFirst":1,
+"word":"12000",
+"idmarque":0,
+"idmodel":0,
+"idcarburant":0,
+"nbplace":5,
+"prix1":12000000,
+"prix2":100000000,
+"idcategories":[1,2]
+}
+------------------recherche sur PubAnnonce
+http://localhost:3000/api/mir/searchOnPubAnnonce
+{
+"iduser":1,
+"nbaffiche":4,
+"numlineBeforeFirst":1,
+"word":"12000",
+"idmarque":0,
+"idmodel":0,
+"idcarburant":0,
+"nbplace":5,
+"prix1":12000000,
+"prix2":100000000,
+"idcategories":[1,2]
+}
+------------------recherche sur MesAnnonces
+http://localhost:3000/api/mir/searchOnMesAnnonces
+{
+"iduser":1,
+"nbaffiche":4,
+"numlineBeforeFirst":1,
+"word":"12000",
+"idmarque":0,
+"idmodel":0,
+"idcarburant":0,
+"nbplace":5,
+"prix1":12000000,
+"prix2":100000000,
+"idcategories":[1,2]
+}
