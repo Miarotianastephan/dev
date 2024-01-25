@@ -19,28 +19,52 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.dev.exception.ExceptionCar;
+
 
 public class ImageService {
     public ImageService(){}
 
-        private byte[] compressBytes(byte[] originalBytes) throws IOException {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(originalBytes);
-        BufferedImage bufferedImage = ImageIO.read(inputStream);
+    // private byte[] compressBytes2(byte[] originalBytes,String originalname) throws IOException {
+    //     ByteArrayInputStream inputStream = new ByteArrayInputStream(originalBytes);
+    //     BufferedImage bufferedImage = ImageIO.read(inputStream);
 
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        ImageIO.write(bufferedImage, "jpeg", outputStream);
+    //     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    //     if(   originalname.substring(originalname.lastIndexOf(".")+1).compareToIgnoreCase("png")==0 ){
+    //         ImageIO.write(bufferedImage, "png", outputStream);
+    //     }else{
+    //         ImageIO.write(bufferedImage, "jpeg", outputStream);
+    //     }
         
-        return outputStream.toByteArray();
+    //     return outputStream.toByteArray();
+    // }
+    public static byte[] compressBytes(byte[] originalImageData,double lasttaille,String originalname) throws IOException {
+        BufferedImage originalImage = ImageIO.read(new ByteArrayInputStream(originalImageData));
+
+        // Créer un flux de sortie pour stocker l'image compressée
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        String extension="jpeg";
+        if(originalname.substring(originalname.lastIndexOf(".")+1).compareToIgnoreCase("png")==0){ extension="PNG"; }
+        ImageIO.write(originalImage, extension, outputStream);
+        if( ((double)outputStream.size()/1024.0)>lasttaille ){
+            return originalImageData;
+        }
+
+        byte[] compressedImageData = outputStream.toByteArray();
+        return compressedImageData;
     }
     public MultipartFile compressImage(MultipartFile originalFile) throws IOException {
-        byte[] compressedBytes = compressBytes(originalFile.getBytes()); // 0.8 is the compression quality
+        byte[] compressedBytes = compressBytes(originalFile.getBytes(),(((double)originalFile.getSize() )/(1024.0)),originalFile.getOriginalFilename());
         return (MultipartFile)new CustomMultipartFile(compressedBytes, originalFile.getOriginalFilename());
     }
     public MultipartFile[] compressImage(MultipartFile[] multipartFiles)throws Exception{
         if(multipartFiles==null){ return null; }
         MultipartFile[] multipartFiles2=new MultipartFile[multipartFiles.length];
+        System.out.println();
         for(int i=0;i<multipartFiles.length;i++){
+            System.out.print(multipartFiles[i].getOriginalFilename()+": "+(((double)multipartFiles[i].getSize() )/(1024.0))+"ko et ");
             multipartFiles2[i]=compressImage(multipartFiles[i]);
+            System.out.print(multipartFiles2[i].getOriginalFilename()+": "+(((double)multipartFiles2[i].getSize() )/(1024.0))+"ko\n");
         }
         return multipartFiles2;
     }
@@ -56,7 +80,7 @@ public class ImageService {
                 id1=strTemp.indexOf("\"url\":");
                 strTemp=strTemp.substring(id1+"\"url\":".length(), strTemp.length());
                 urlimages[i]=strTemp.substring(0,strTemp.indexOf(",")).replaceAll(" ","").replaceAll("\"","");
-
+                if(urlimages[i].contains(":400")==true){ throw new ExceptionCar("erreur upload photo"); }
                 // resultMap= objectMapper.readValue(imgBbResponses.get(i), new TypeReference<HashMap<String, Object>>(){});
                 // System.out.println(resultMap.get("data"));
                 // resultMap= objectMapper.readValue((String)resultMap.get("data"), new TypeReference<HashMap<String, Object>>(){});
