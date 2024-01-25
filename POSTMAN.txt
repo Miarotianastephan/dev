@@ -17,14 +17,8 @@ http://localhost:3000/api/mir/creercompte?iduser=1
 
 -------------------------------------------creer annonce
 
-http://localhost:3000/api/mir/ajoutannonce
-{
-  "idvoitureinfo": 1,
-  "idlieu": 2,
-  "prixvente": 100000000,
-  "description": "mandeha tsara tsisy blem",
+http://localhost:3000/api/usermir/ajoutannonce
 
-}
 
 ----------------voir publication non valide 
 http://localhost:3000/api/mir/getAnnoncesNonValider?nbaffiche=2&numlinebeforefirst=0
