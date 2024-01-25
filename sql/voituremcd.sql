@@ -194,7 +194,7 @@ CREATE TABLE annoncerefus(
 
 CREATE TABLE debitersoldeuser(
    iddebit SERIAL,
-   montantd VARCHAR(50) ,
+   montantd DOUBLE PRECISION ,
    dated TIMESTAMP,
    idmotif INTEGER NOT NULL,
    idsoldeuser INTEGER NOT NULL,
@@ -202,6 +202,7 @@ CREATE TABLE debitersoldeuser(
    FOREIGN KEY(idmotif) REFERENCES motif(idmotif),
    FOREIGN KEY(idsoldeuser) REFERENCES soldeuser(idsoldeuser)
 );
+
 
 CREATE TABLE creditersoldesite(
    idcredit SERIAL,

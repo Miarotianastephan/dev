@@ -4,10 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -20,14 +17,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.HttpClients;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ImageService {
     public ImageService(){}
@@ -55,11 +46,9 @@ public class ImageService {
     }
 
     public String[] uploadAndGetLinksImage(MultipartFile[] files)throws Exception {
-            String apiKey = "ca2d96c9ae967bb975557194bd8ec9e3";
+            String apiKey = "ca2d96c9ae967bb975557194bd8ec9e3";//<---- key le azon'la t@ alalan'le compte no-creern'ela t@ imagebb no atao eto,  
             List<String> imgBbResponses = uploadImagesToImgBB(apiKey, files);
             String[] urlimages=new String[imgBbResponses.size()];
-            ObjectMapper objectMapper=new ObjectMapper();
-            HashMap<String,Object> resultMap;
             String strTemp="";
             int id1=0;
             for(int i=0;i<imgBbResponses.size();i++){
