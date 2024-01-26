@@ -14,7 +14,7 @@ public class AnnoncedetailMi_v{
     String nomvoiture; 
     int nombreplace; 
     double kilometrage; 
-    int transmission; 
+    int idtransmission; 
     String nomtransmission;
     double vitesse; 
     int iduser; 
@@ -55,7 +55,7 @@ public class AnnoncedetailMi_v{
         this.nomvoiture = nomvoiture;
         this.nombreplace = nombreplace;
         this.kilometrage = kilometrage;
-        this.transmission = transmission;
+        this.idtransmission = transmission;
         this.nomtransmission=nomtransmission;
         this.vitesse = vitesse;
         this.iduser = iduser;
@@ -169,11 +169,11 @@ public class AnnoncedetailMi_v{
     public void setKilometrage(double kilometrage){
         this.kilometrage=kilometrage;
     }
-    public int getTransmission(){
-        return this.transmission;
+    public int getIdtransmission(){
+        return this.idtransmission;
     }
-    public void setTransmission(int transmission){
-        this.transmission=transmission;
+    public void setIdtransmission(int idtransmission){
+        this.idtransmission=idtransmission;
     }
     public String getNomtransmission() {
         return nomtransmission;

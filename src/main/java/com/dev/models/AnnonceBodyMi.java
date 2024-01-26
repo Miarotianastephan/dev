@@ -277,7 +277,7 @@ public class AnnonceBodyMi{
                 idcNow=adtemp.getIdcategorie();
                 abtemp=new AnnonceBodyMi(
                     adtemp.getIdannonce(), adtemp.getPrixvente(), adtemp.getDescriptions(), adtemp.getStatusventeString(), adtemp.getEtatString(), adtemp.getDateannonce(), 
-                    adtemp.getIdlieu(), adtemp.getNomlieu(), adtemp.getIdvoitureinfo(), adtemp.getNomvoiture(), adtemp.getNombreplace(), adtemp.getKilometrage(), adtemp.getTransmission(),adtemp.getNomtransmission(),
+                    adtemp.getIdlieu(), adtemp.getNomlieu(), adtemp.getIdvoitureinfo(), adtemp.getNomvoiture(), adtemp.getNombreplace(), adtemp.getKilometrage(), adtemp.getIdtransmission(),adtemp.getNomtransmission(),
                     adtemp.getVitesse(), adtemp.getIduser(), adtemp.getNomuser(), adtemp.getPrenomuser(), adtemp.getIdcarburant(), adtemp.getNomcarburant(), adtemp.getIdmarque(), adtemp.getNommarque(), 
                     adtemp.getIdmodel(), adtemp.getNommodel(),null,adtemp.getAnneefab(),  adtemp.getDatevente(), adtemp.getDatemodifstatus(), adtemp.estfavoris(),null
                     );
@@ -301,7 +301,7 @@ public class AnnonceBodyMi{
                 lph=new ArrayList<String>(); //de creerna ndray ny photo asina an'le photo an'le annonce manaraka
                 abtemp=new AnnonceBodyMi(
                     adtemp.getIdannonce(), adtemp.getPrixvente(), adtemp.getDescriptions(), adtemp.getStatusventeString(), adtemp.getEtatString(), adtemp.getDateannonce(), 
-                    adtemp.getIdlieu(), adtemp.getNomlieu(), adtemp.getIdvoitureinfo(), adtemp.getNomvoiture(), adtemp.getNombreplace(), adtemp.getKilometrage(), adtemp.getTransmission(),adtemp.getNomtransmission(),
+                    adtemp.getIdlieu(), adtemp.getNomlieu(), adtemp.getIdvoitureinfo(), adtemp.getNomvoiture(), adtemp.getNombreplace(), adtemp.getKilometrage(), adtemp.getIdtransmission(),adtemp.getNomtransmission(),
                     adtemp.getVitesse(), adtemp.getIduser(), adtemp.getNomuser(), adtemp.getPrenomuser(), adtemp.getIdcarburant(), adtemp.getNomcarburant(), adtemp.getIdmarque(), adtemp.getNommarque(), 
                     adtemp.getIdmodel(), adtemp.getNommodel(),null,  adtemp.getAnneefab(),adtemp.getDatevente(), adtemp.getDatemodifstatus(), adtemp.estfavoris(),null
                     );
