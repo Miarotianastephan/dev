@@ -1,14 +1,7 @@
 package com.dev.models;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.Entity;
-@Entity
-@Table(name="categorievoiture")
+
 public class Categorie{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     int idcategorie; 
     String nomcategorie; 
 

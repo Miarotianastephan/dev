@@ -17,7 +17,7 @@ http://localhost:3000/api/mir/creercompte?iduser=1
 
 -------------------------------------------creer annonce
 
-http://localhost:3000/api/usermir/ajoutannonce
+http://localhost:3000/api/usermir//ajoutannonce2
 
 
 ----------------voir publication non valide 
@@ -47,8 +47,6 @@ http://localhost:3000/api/mir/changerStatusAnnonce?iduser=1&idannonce=4&datevent
 http://localhost:3000/api/mir/searchOnNonValider
 {
 "iduser":1,
-"nbaffiche":4,
-"numlineBeforeFirst":1,
 "word":"12000",
 "idmarque":0,
 "idmodel":0,
@@ -62,8 +60,6 @@ http://localhost:3000/api/mir/searchOnNonValider
 http://localhost:3000/api/mir/searchOnPubAnnonce
 {
 "iduser":1,
-"nbaffiche":4,
-"numlineBeforeFirst":1,
 "word":"12000",
 "idmarque":0,
 "idmodel":0,
@@ -77,8 +73,6 @@ http://localhost:3000/api/mir/searchOnPubAnnonce
 http://localhost:3000/api/mir/searchOnMesAnnonces
 {
 "iduser":1,
-"nbaffiche":4,
-"numlineBeforeFirst":1,
 "word":"12000",
 "idmarque":0,
 "idmodel":0,

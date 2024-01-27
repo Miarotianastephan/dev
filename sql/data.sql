@@ -22,7 +22,7 @@ insert into carburant(nomcarburant) values('Essence'),('Gasoil'),('Electrique');
 --lieu
 insert into lieu(nomlieu) values('Mahajanga'),('Antsirabe'),('Toamasina'),('Toliara');
 --credit code 
-insert into valeurcredit(valeur) values(10000),(25000),(50000),(100000),(350000),(500000);
+insert into valeurcredit(valeur) values(10000),(25000),(50000),(100000),(350000),(500000),(1000000);
 insert into codecredit(code,etats,idvaleurcredit) values
 (10000001,0,1),
 (10000002,0,1),
@@ -47,7 +47,11 @@ insert into codecredit(code,etats,idvaleurcredit) values
 (10000021,0,6),
 (10000022,0,6),
 (10000023,0,6),
-(10000024,0,6);
+(10000024,0,6),
+(10000025,0,7),
+(10000026,0,7),
+(10000027,0,7),
+(10000028,0,7);
 --regle taux commission
 insert into regletaux (coderegle,nomregle,tauxpourcent) values('C000','commission',10);
 

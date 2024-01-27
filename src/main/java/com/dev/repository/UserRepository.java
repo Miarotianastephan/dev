@@ -9,4 +9,5 @@ import com.dev.model.user.User;
 public interface UserRepository extends JpaRepository<User , Integer>{
     
     Optional<User> findByMail(String mail);
+    Optional<User> findById(int idUser);
 }

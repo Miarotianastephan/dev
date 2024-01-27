@@ -18,7 +18,7 @@ public class AnnonceBodyMi{
     String nomvoiture; 
     int nombreplace; 
     double kilometrage; 
-    int transmission; 
+    int idtransmission; 
     String nomtransmission;
     double vitesse; 
     int iduser; 
@@ -43,7 +43,7 @@ public class AnnonceBodyMi{
     
     public AnnonceBodyMi(int idannonce, double prixvente, String descriptions, String statusvente, String etat,
             Timestamp dateannonce, int idlieu, String nomlieu, int idvoitureinfo, String nomvoiture,
-            int nombreplace, double kilometrage, int transmission, String nomtransmission, double vitesse, int iduser, String nomuser,
+            int nombreplace, double kilometrage, int idtransmission, String nomtransmission, double vitesse, int iduser, String nomuser,
             String prenomuser, int idcarburant, String nomcarburant, int idmarque, String nommarque, int idmodel,
             String nommodel, List<Categorie> categories,int anneefab, Date datevente, Date datemodifstatus, boolean estfavoris,List<String> photos) {
         this.idannonce = idannonce;
@@ -58,7 +58,7 @@ public class AnnonceBodyMi{
         this.nomvoiture = nomvoiture;
         this.nombreplace = nombreplace;
         this.kilometrage = kilometrage;
-        this.transmission = transmission;
+        this.idtransmission = idtransmission;
         this.nomtransmission= nomtransmission;
         this.vitesse = vitesse;
         this.iduser = iduser;
@@ -150,11 +150,11 @@ public class AnnonceBodyMi{
     public void setKilometrage(double kilometrage) {
         this.kilometrage = kilometrage;
     }
-    public int getTransmission() {
-        return transmission;
+    public int getIdtransmission() {
+        return idtransmission;
     }
-    public void setTransmission(int transmission) {
-        this.transmission = transmission;
+    public void setIdtransmission(int idtransmission) {
+        this.idtransmission = idtransmission;
     }
     public String getNomtransmission() {
         return nomtransmission;

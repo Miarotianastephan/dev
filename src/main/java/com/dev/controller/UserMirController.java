@@ -51,7 +51,7 @@ public class UserMirController {
         return "Hello All !!";
     }
     //Mandeha
-    @GetMapping("/ajoutinfocar")
+    @GetMapping("/ajoutinfocar")//ok
     public Hashtable <String,Object> ajoutinfocar( @RequestBody InfoCar infoCar) {
         Hashtable <String,Object> response=new Hashtable<>();
         
@@ -73,7 +73,7 @@ public class UserMirController {
     }
 
     //mandeha
-    @GetMapping("/creercompte")
+    @PostMapping("/creersoldecompte")//ok
     public Hashtable <String,Object>  creercompte(@RequestParam int iduser){
         Hashtable <String,Object> response=new Hashtable<>();
         
@@ -94,7 +94,7 @@ public class UserMirController {
         return response;
     }
     
-    @PostMapping("/ajoutannonce2") 
+    @PostMapping("/ajoutannonce") //ok
     public Hashtable <String,Object> ajoutannonce2( @RequestParam int idvoitureinfo,@RequestParam int idlieu,@RequestParam double prixvente,@RequestParam String description,@RequestParam MultipartFile[] files) {
         Hashtable <String,Object> response=new Hashtable<>();
         
@@ -117,7 +117,7 @@ public class UserMirController {
     }
 
     //Mandeha  
-    @GetMapping(path="/getPubAnnonces",produces = "application/json") //les annonces sauf mes annonces
+    @GetMapping(path="/getPubAnnonces",produces = "application/json") //ok
     public Hashtable<String,Object> getPubAnnoces( @RequestParam int iduser,@RequestParam int nbaffiche,@RequestParam int numlinebeforefirst) {
         Hashtable <String,Object> response=new Hashtable<>();
         try{
@@ -136,7 +136,7 @@ public class UserMirController {
         return response;
     }
     //Mandeha
-    @GetMapping("/getMesAnnoces")
+    @GetMapping("/getMesAnnonces")//ok
     public Hashtable <String,Object> getMesAnnoces( @RequestParam int iduser,@RequestParam int nbaffiche,@RequestParam int numlinebeforefirst) {
         Hashtable <String,Object> response=new Hashtable<>();
         try{
@@ -155,7 +155,7 @@ public class UserMirController {
         return response;
     }
     //mandeha
-    @GetMapping("/toFavoris")
+    @GetMapping("/favorisation")//ok
     public Hashtable <String,Object> getPubAnnoces( @RequestParam int iduser,@RequestParam int idannonce) {
         Hashtable <String,Object> response=new Hashtable<>();
         
@@ -177,7 +177,7 @@ public class UserMirController {
     }
 
 
-    @PostMapping("/creditercompte")
+    @PostMapping("/creditercompte")//ok
     public Hashtable <String,Object> creditercompte( @RequestParam int iduser,@RequestParam String code) {   
         Hashtable <String,Object> response=new Hashtable<>();
         
@@ -198,7 +198,7 @@ public class UserMirController {
         return response;
     }
     //mandeha
-    @GetMapping("/changerStatusAnnonce") 
+    @GetMapping("/changerStatusAnnonce") //ok
     public Hashtable <String,Object> changerStatusAnnonce( @RequestParam int iduser,@RequestParam int idannonce,@RequestParam String datevente) {  
         Hashtable <String,Object> response=new Hashtable<>(); 
         
@@ -221,11 +221,11 @@ public class UserMirController {
         return response;
     }
     
-    @GetMapping("/searchOnPubAnnonce") //les annonces sauf mes annonces
+    @PostMapping("/searchOnPubAnnonce")//okok?
     public Hashtable <String,Object> searchOnPubAnnonce( @RequestBody Search search) {
         Hashtable <String,Object> response=new Hashtable<>(); 
         try{
-            List<AnnoncedetailMi_v> lstA= annoncedetailMi_vSer.getSearchAllByNotIduserByNbafficheByNumlineBeforFirst(search.getIduser(),search.getNbaffiche(), search.getNumlineBeforeFirst(), search.getWord(), search.getIdmarque(), search.getIdmodel(), search.getIdcarburant(), search.getNbplace(), search.getPrix1(), search.getPrix2(), search.getIdcategories());
+            List<AnnoncedetailMi_v> lstA= annoncedetailMi_vSer.getSearchAllByNotIduserByNbafficheByNumlineBeforFirst(search.getIduser(), search.getWord(), search.getIdmarque(), search.getIdmodel(), search.getIdcarburant(), search.getNbplace(), search.getPrix1(), search.getPrix2(), search.getIdcategories());
             List<AnnonceBodyMi> lstAB=new AnnonceBodyMi().createListByListAnnoncedetailMi_v(lstA);
             response.put("status",200);
             response.put("message","ok");
@@ -240,11 +240,11 @@ public class UserMirController {
         }
         return response;
     }
-    @GetMapping("/searchOnMesAnnonces")
+    @PostMapping("/searchOnMesAnnonces")//ok
     public Hashtable <String,Object> searchOnMesAnnonces( @RequestBody Search search) {
         Hashtable <String,Object> response=new Hashtable<>(); 
         try{
-            List<AnnoncedetailMi_v> lstA= annoncedetailMi_vSer.getSearchAllByIduserByNbafficheByNumlineBeforFirst(search.getIduser(),search.getNbaffiche(), search.getNumlineBeforeFirst(), search.getWord(), search.getIdmarque(), search.getIdmodel(), search.getIdcarburant(), search.getNbplace(), search.getPrix1(), search.getPrix2(), search.getIdcategories());
+            List<AnnoncedetailMi_v> lstA= annoncedetailMi_vSer.getSearchAllByIduserByNbafficheByNumlineBeforFirst(search.getIduser(), search.getWord(), search.getIdmarque(), search.getIdmodel(), search.getIdcarburant(), search.getNbplace(), search.getPrix1(), search.getPrix2(), search.getIdcategories());
             List<AnnonceBodyMi> lstAB=new AnnonceBodyMi().createListByListAnnoncedetailMi_v(lstA);
             response.put("status",200);
             response.put("message","ok");

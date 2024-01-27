@@ -3,8 +3,6 @@ package com.dev.body;
 public class Search {
     
     int iduser;
-    int nbaffiche;
-    int numlineBeforeFirst;
     String word;
     int idmarque;
     int idmodel;
@@ -21,18 +19,6 @@ public class Search {
     }
     public void setIduser(int iduser) {
         this.iduser = iduser;
-    }
-    public int getNbaffiche() {
-        return nbaffiche;
-    }
-    public void setNbaffiche(int nbaffiche) {
-        this.nbaffiche = nbaffiche;
-    }
-    public int getNumlineBeforeFirst() {
-        return numlineBeforeFirst;
-    }
-    public void setNumlineBeforeFirst(int numlineBeforeFirst) {
-        this.numlineBeforeFirst = numlineBeforeFirst;
     }
     public String getWord() {
         return word;

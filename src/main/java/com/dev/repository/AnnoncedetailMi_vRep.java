@@ -17,7 +17,7 @@ public class AnnoncedetailMi_vRep  {
     private EntityManager entityManager;
 
     public List<AnnoncedetailMi_v> executerRequeteNative(String requete) {
-        // Utilisation de createNativeQuery sans spécifier explicitement le type
+        // Utilisation de createNativeQuery sans spécifier explicitement le type4
         return (List<AnnoncedetailMi_v>)entityManager.createNativeQuery(requete, AnnoncedetailMi_v.class).getResultList();
     }
     public List<AnnoncedetailMi_v> getByNotIduser(int iduser, int nbaffiche, int numlineBeforeFirst) {

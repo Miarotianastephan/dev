@@ -97,19 +97,19 @@ public class AnnoncedetailMi_vSer {
 
     }
 
-    public List<AnnoncedetailMi_v> getSearchAllByNotIduserByNbafficheByNumlineBeforFirst(int iduser,int nbaffiche,int numlineBeforeFirst,String word,int idmarque,int idmodel,int idcarburant,int nbplace,double prix1,double prix2,int[] idcategories){
+    public List<AnnoncedetailMi_v> getSearchAllByNotIduserByNbafficheByNumlineBeforFirst(int iduser,String word,int idmarque,int idmodel,int idcarburant,int nbplace,double prix1,double prix2,int[] idcategories){
         String suitequery=createSuiteRequeteRechercher(word, idmarque, idmodel, idcarburant, nbplace, prix1, prix2, idcategories);
-        return annoncedetaipersoRepository.getSearchByNotIduser(iduser, nbaffiche, numlineBeforeFirst, suitequery);
+        return annoncedetaipersoRepository.getSearchByNotIduser(iduser, suitequery);
     }//getByIduser(@Param("iduser")int iduser,@Param("nbaffiche")int nbaffiche,@Param("numlineBeforeFirst")int numlineBeforeFirst ) 
 
-    public List<AnnoncedetailMi_v> getSearchAllByIduserByNbafficheByNumlineBeforFirst(int iduser,int nbaffiche,int numlineBeforeFirst,String word,int idmarque,int idmodel,int idcarburant,int nbplace,double prix1,double prix2,int[] idcategories ){
+    public List<AnnoncedetailMi_v> getSearchAllByIduserByNbafficheByNumlineBeforFirst(int iduser,String word,int idmarque,int idmodel,int idcarburant,int nbplace,double prix1,double prix2,int[] idcategories ){
         String suitequery=createSuiteRequeteRechercher(word, idmarque, idmodel, idcarburant, nbplace, prix1, prix2, idcategories);
-        return annoncedetaipersoRepository.getSearchByIduser(iduser, nbaffiche, numlineBeforeFirst, suitequery);
+        return annoncedetaipersoRepository.getSearchByIduser(iduser, suitequery);
     }
 
-    public List<AnnoncedetailMi_v> getSearchAllEncoursByNbafficheByNumlineBeforFirst(int nbaffiche,int numlineBeforeFirst,String word,int idmarque,int idmodel,int idcarburant,int nbplace,double prix1,double prix2,int[] idcategories ){
+    public List<AnnoncedetailMi_v> getSearchAllEncoursByNbafficheByNumlineBeforFirst(String word,int idmarque,int idmodel,int idcarburant,int nbplace,double prix1,double prix2,int[] idcategories ){
         String suitequery=createSuiteRequeteRechercher(word, idmarque, idmodel, idcarburant, nbplace, prix1, prix2, idcategories);
-        return annoncedetaipersoRepository.getSearchEncours(nbaffiche, numlineBeforeFirst, suitequery);
+        return annoncedetaipersoRepository.getSearchEncours( suitequery);
     }
 }
 

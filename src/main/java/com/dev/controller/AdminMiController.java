@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,7 +44,7 @@ public class AdminMiController {
     }
 
     //Mandeha
-    @GetMapping("/getAnnoncesNonValider")
+    @GetMapping("/getAnnoncesNonValider")//ok
     public Hashtable <String,Object> getAnnoncesNonValider(@RequestParam int nbaffiche,@RequestParam int numlinebeforefirst) {
         Hashtable <String,Object> response=new Hashtable<>();
         try{
@@ -65,7 +66,7 @@ public class AdminMiController {
     }
 
     //Mandeha
-    @GetMapping("/validerAnnonce")
+    @PostMapping("/validerAnnonce")//ok
     public Hashtable <String,Object> validerAnnonce( @RequestParam int idadmin,@RequestParam int idannonce) {   
         Hashtable <String,Object> response=new Hashtable<>();
         
@@ -106,33 +107,13 @@ public class AdminMiController {
         }
         return response;
     }
-    //mandeha
-    @GetMapping("/toFavoris")
-    public Hashtable <String,Object> getPubAnnoces( @RequestParam int iduser,@RequestParam int idannonce) {
-        Hashtable <String,Object> response=new Hashtable<>();
-        
-        try{
-            annoncefavorisMiSer.verifeInsert(iduser, idannonce);
-        }catch(ExceptionCar ec){
-            ec.printStackTrace();
-            response.put("status",500);
-            response.put("message",ec.getMessage());
-        }catch(Exception e){
-            e.printStackTrace();
-            response.put("status",500);
-            response.put("message","error");
-            response.put("cause",e.getMessage());
-        }
-        return response;
-    }
-
 
     //-------------------recherche
-    @GetMapping("/searchOnNonValider")
+    @GetMapping("/searchOnNonValider")//ok
     public Hashtable <String,Object> searchOnNonValider( @RequestBody Search search) {
         Hashtable <String,Object> response=new Hashtable<>(); 
         try{
-            List<AnnoncedetailMi_v> lstA= annoncedetailMi_vSer.getSearchAllEncoursByNbafficheByNumlineBeforFirst(search.getNbaffiche(), search.getNumlineBeforeFirst(), search.getWord(), search.getIdmarque(), search.getIdmodel(), search.getIdcarburant(), search.getNbplace(), search.getPrix1(), search.getPrix2(), search.getIdcategories());
+            List<AnnoncedetailMi_v> lstA= annoncedetailMi_vSer.getSearchAllEncoursByNbafficheByNumlineBeforFirst( search.getWord(), search.getIdmarque(), search.getIdmodel(), search.getIdcarburant(), search.getNbplace(), search.getPrix1(), search.getPrix2(), search.getIdcategories());
             List<AnnonceBodyMi> lstAB=new AnnonceBodyMi().createListByListAnnoncedetailMi_v(lstA);
             response.put("status",200);
             response.put("message","ok");
@@ -148,7 +129,7 @@ public class AdminMiController {
     }
     //-------------------------------------------------------------------------
     //mety
-    @GetMapping("/changetauxcommision")
+    @GetMapping("/changetauxcommision")//ok
     public Hashtable <String,Object> changetauxcommision( @RequestParam float tauxpourcent) {
         Hashtable <String,Object> response=new Hashtable<>(); 
         try{

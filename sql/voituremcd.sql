@@ -42,7 +42,7 @@ CREATE TABLE models(
    idmodel SERIAL,
    nommodel VARCHAR(50) ,
    idmarque int REFERENCES marque (idmarque),
-   transmission int REFERENCES transmission(idtransmission),
+   idtransmission int REFERENCES transmission(idtransmission),
    anneefab int check(anneefab>0),
    vitesse DOUBLE PRECISION check (vitesse>0),
    idcarburant int REFERENCES carburant (idcarburant),

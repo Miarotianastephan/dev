@@ -11,6 +11,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 
 @Configuration
@@ -20,7 +21,7 @@ public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
-    
+
     @Bean
     public SecurityFilterChain apiSecurity(HttpSecurity http) throws Exception{
 
@@ -28,8 +29,15 @@ public class SecurityConfig {
             .csrf()
             .disable()
             .authorizeHttpRequests()
+            .requestMatchers("/api/statistic/**").permitAll() // gerer statistique
+            .requestMatchers("/signinlogin/**").permitAll() // gerer categorie
             .requestMatchers("/api/user/**").permitAll() // pour login et inscription
             .requestMatchers("/api/adminmir/**").permitAll() // admin pour gestion back offic
+            .requestMatchers("/transmission/**").permitAll() // gerer transmission
+            .requestMatchers("/model/**").permitAll() // gerer model
+            .requestMatchers("/message/**").permitAll() // gerer message
+            .requestMatchers("/marque/**").permitAll() // gerer marque
+            .requestMatchers("/categorie/**").permitAll() // gerer categorie
             // .requestMatchers(HttpMethod.GET , "/api/usermir/getMesAnnoces").hasAuthority
             .requestMatchers(HttpMethod.GET , "/api/usermir/getPubAnnonces" ,"/api/usermir/searchOnPubAnnonce").permitAll()
             // .requestMatchers(HttpMethod.POST , "/api/usermir/creditercompte").permitAll()
@@ -43,4 +51,6 @@ public class SecurityConfig {
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
+
+
 }
