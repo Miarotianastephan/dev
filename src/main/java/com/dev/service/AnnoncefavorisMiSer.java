@@ -25,7 +25,11 @@ public class AnnoncefavorisMiSer {
         AnnoncefavorisMi annoncefavorisMi=new AnnoncefavorisMi(0,iduser,idannonce);
         List<AnnoncefavorisMi> la=getListByIduserByIdannonce(iduser, idannonce);
         if(la.isEmpty()==true){ return annonceRepository.save(annoncefavorisMi); }
-        else { throw new ExceptionCar("Deja favorisé"); }
+        else { 
+            annonceRepository.deleteById(la.get(0).getIdannoncefavoris());
+            return null;
+         }
+         //fafana raha efa misy
     }
     // private File convertMultiPartToFile(MultipartFile file) {
     //     File convertedFile = new File(file.getOriginalFilename());

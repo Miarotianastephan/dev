@@ -34,11 +34,15 @@ CREATE TABLE carburant(
    nomcarburant VARCHAR(50) ,
    PRIMARY KEY(idcarburant)
 );
+create table transmission(
+   idtransmission SERIAL primary key,
+   nomtransmission VARCHAR unique
+);
 CREATE TABLE models(
    idmodel SERIAL,
    nommodel VARCHAR(50) ,
    idmarque int REFERENCES marque (idmarque),
-   transmission int REFERENCES transmission(idtransmission),
+   idtransmission int REFERENCES transmission(idtransmission),
    anneefab int check(anneefab>0),
    vitesse DOUBLE PRECISION check (vitesse>0),
    idcarburant int REFERENCES carburant (idcarburant),
@@ -49,10 +53,6 @@ CREATE TABLE categorie(
    idcategorie SERIAL,
    nomcategorie VARCHAR(50) ,
    PRIMARY KEY(idcategorie)
-);
-create table transmission(
-   idtransmission SERIAL primary key,
-   nomtransmission VARCHAR unique
 );
 CREATE TABLE modelcategorie(
    idmodelcategorie SERIAL PRIMARY KEY,

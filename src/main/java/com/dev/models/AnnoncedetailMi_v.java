@@ -14,7 +14,7 @@ public class AnnoncedetailMi_v{
     String nomvoiture; 
     int nombreplace; 
     double kilometrage; 
-    int transmission; 
+    int idtransmission; 
     String nomtransmission;
     double vitesse; 
     int iduser; 
@@ -39,7 +39,7 @@ public class AnnoncedetailMi_v{
     //t.nomtransmission
     public AnnoncedetailMi_v(int idannonce, double prixvente, String descriptions, int statusvente, int etat,
             Timestamp dateannonce, int idlieu, String nomlieu, int idvoitureinfo, String nomvoiture,
-            int nombreplace, double kilometrage, int transmission, String nomtransmission, double vitesse, int iduser, String nomuser,
+            int nombreplace, double kilometrage, int idtransmission, String nomtransmission, double vitesse, int iduser, String nomuser,
             String prenomuser, int idcarburant, String nomcarburant, int idmarque, String nommarque, int idmodel,
             String nommodel, int idcategorie, String nomcategorie,int anneefab, Date datevente, Date datemodifstatus,
             int idannoncephoto, String photo, int idannoncefavoris) {
@@ -55,7 +55,7 @@ public class AnnoncedetailMi_v{
         this.nomvoiture = nomvoiture;
         this.nombreplace = nombreplace;
         this.kilometrage = kilometrage;
-        this.transmission = transmission;
+        this.idtransmission = idtransmission;
         this.nomtransmission=nomtransmission;
         this.vitesse = vitesse;
         this.iduser = iduser;
@@ -169,11 +169,11 @@ public class AnnoncedetailMi_v{
     public void setKilometrage(double kilometrage){
         this.kilometrage=kilometrage;
     }
-    public int getTransmission(){
-        return this.transmission;
+    public int getIdtransmission(){
+        return this.idtransmission;
     }
-    public void setTransmission(int transmission){
-        this.transmission=transmission;
+    public void setIdtransmission(int idtransmission){
+        this.idtransmission=idtransmission;
     }
     public String getNomtransmission() {
         return nomtransmission;

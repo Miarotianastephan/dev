@@ -1,0 +1,2 @@
+-nanampy fonction : changer le regle de taux commission---->ao anatin'izany ny endpoint
+-nanova kely ny favoris --> defavoriser et favoriser---->ao anatin'izany ny endpoint

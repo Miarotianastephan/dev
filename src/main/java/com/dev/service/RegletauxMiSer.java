@@ -34,6 +34,25 @@ public class RegletauxMiSer {
        if(tc.isEmpty()==true){ return 0; }
        else return tc.get(0);
     }
+
+    public RegletauxMi getRegletauxMi_commission(){
+       List<RegletauxMi> lst= repository.getRegletaux_Commision();
+       if(lst.isEmpty()==true){ return null; }
+       else{ return lst.get(0); }
+    }
+
+    // idregletaux | coderegle |  nomregle  | tauxpourcent
+    // -------------+-----------+------------+--------------
+    //            1 | C000      | commission |          0.1
+    public void modifeOrCreateIfNotExist(float tauxSansSur100)throws Exception{
+        RegletauxMi r=getRegletauxMi_commission();
+        if(r==null){
+            r=new RegletauxMi(0, "C000", "commission", tauxSansSur100);
+        }else{
+            r.setTauxpourcent(tauxSansSur100);
+        }
+        repository.save(r);
+    }
     // Méthode pour récupérer un  par son ID
     public Optional<RegletauxMi> getById(int id) {
         return repository.findById(id);

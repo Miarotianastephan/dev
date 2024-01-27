@@ -160,6 +160,8 @@ public class UserMirController {
         
         try{
             annoncefavorisMiSer.verifeInsert(iduser, idannonce);
+            response.put("status",200);
+            response.put("message","succes");
         }catch(ExceptionCar ec){
             ec.printStackTrace();
             response.put("status",500);

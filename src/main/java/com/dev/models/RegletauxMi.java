@@ -18,7 +18,14 @@ public class RegletauxMi{
     float tauxpourcent; 
 
     public RegletauxMi(){ }
-    
+     
+    public RegletauxMi(int idregletaux, String coderegle, String nomregle, float tauxpourcent)throws Exception{
+        setIdregletaux(idregletaux);
+        setCoderegle(coderegle);
+        setNomregle(nomregle);
+        setTauxpourcent(tauxpourcent);
+    }
+
     public int getIdregletaux(){
         return this.idregletaux;
     }

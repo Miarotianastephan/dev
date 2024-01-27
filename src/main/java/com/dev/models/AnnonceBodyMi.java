@@ -18,7 +18,7 @@ public class AnnonceBodyMi{
     String nomvoiture; 
     int nombreplace; 
     double kilometrage; 
-    int transmission; 
+    int idtransmission; 
     String nomtransmission;
     double vitesse; 
     int iduser; 
@@ -43,7 +43,7 @@ public class AnnonceBodyMi{
     
     public AnnonceBodyMi(int idannonce, double prixvente, String descriptions, String statusvente, String etat,
             Timestamp dateannonce, int idlieu, String nomlieu, int idvoitureinfo, String nomvoiture,
-            int nombreplace, double kilometrage, int transmission, String nomtransmission, double vitesse, int iduser, String nomuser,
+            int nombreplace, double kilometrage, int idtransmission, String nomtransmission, double vitesse, int iduser, String nomuser,
             String prenomuser, int idcarburant, String nomcarburant, int idmarque, String nommarque, int idmodel,
             String nommodel, List<Categorie> categories,int anneefab, Date datevente, Date datemodifstatus, boolean estfavoris,List<String> photos) {
         this.idannonce = idannonce;
@@ -58,7 +58,7 @@ public class AnnonceBodyMi{
         this.nomvoiture = nomvoiture;
         this.nombreplace = nombreplace;
         this.kilometrage = kilometrage;
-        this.transmission = transmission;
+        this.idtransmission = idtransmission;
         this.nomtransmission= nomtransmission;
         this.vitesse = vitesse;
         this.iduser = iduser;
@@ -150,11 +150,11 @@ public class AnnonceBodyMi{
     public void setKilometrage(double kilometrage) {
         this.kilometrage = kilometrage;
     }
-    public int getTransmission() {
-        return transmission;
+    public int getIdtransmission() {
+        return idtransmission;
     }
-    public void setTransmission(int transmission) {
-        this.transmission = transmission;
+    public void setIdtransmission(int transmission) {
+        this.idtransmission = transmission;
     }
     public String getNomtransmission() {
         return nomtransmission;
@@ -277,7 +277,7 @@ public class AnnonceBodyMi{
                 idcNow=adtemp.getIdcategorie();
                 abtemp=new AnnonceBodyMi(
                     adtemp.getIdannonce(), adtemp.getPrixvente(), adtemp.getDescriptions(), adtemp.getStatusventeString(), adtemp.getEtatString(), adtemp.getDateannonce(), 
-                    adtemp.getIdlieu(), adtemp.getNomlieu(), adtemp.getIdvoitureinfo(), adtemp.getNomvoiture(), adtemp.getNombreplace(), adtemp.getKilometrage(), adtemp.getTransmission(),adtemp.getNomtransmission(),
+                    adtemp.getIdlieu(), adtemp.getNomlieu(), adtemp.getIdvoitureinfo(), adtemp.getNomvoiture(), adtemp.getNombreplace(), adtemp.getKilometrage(), adtemp.getIdtransmission(),adtemp.getNomtransmission(),
                     adtemp.getVitesse(), adtemp.getIduser(), adtemp.getNomuser(), adtemp.getPrenomuser(), adtemp.getIdcarburant(), adtemp.getNomcarburant(), adtemp.getIdmarque(), adtemp.getNommarque(), 
                     adtemp.getIdmodel(), adtemp.getNommodel(),null,adtemp.getAnneefab(),  adtemp.getDatevente(), adtemp.getDatemodifstatus(), adtemp.estfavoris(),null
                     );
@@ -301,7 +301,7 @@ public class AnnonceBodyMi{
                 lph=new ArrayList<String>(); //de creerna ndray ny photo asina an'le photo an'le annonce manaraka
                 abtemp=new AnnonceBodyMi(
                     adtemp.getIdannonce(), adtemp.getPrixvente(), adtemp.getDescriptions(), adtemp.getStatusventeString(), adtemp.getEtatString(), adtemp.getDateannonce(), 
-                    adtemp.getIdlieu(), adtemp.getNomlieu(), adtemp.getIdvoitureinfo(), adtemp.getNomvoiture(), adtemp.getNombreplace(), adtemp.getKilometrage(), adtemp.getTransmission(),adtemp.getNomtransmission(),
+                    adtemp.getIdlieu(), adtemp.getNomlieu(), adtemp.getIdvoitureinfo(), adtemp.getNomvoiture(), adtemp.getNombreplace(), adtemp.getKilometrage(), adtemp.getIdtransmission(),adtemp.getNomtransmission(),
                     adtemp.getVitesse(), adtemp.getIduser(), adtemp.getNomuser(), adtemp.getPrenomuser(), adtemp.getIdcarburant(), adtemp.getNomcarburant(), adtemp.getIdmarque(), adtemp.getNommarque(), 
                     adtemp.getIdmodel(), adtemp.getNommodel(),null,  adtemp.getAnneefab(),adtemp.getDatevente(), adtemp.getDatemodifstatus(), adtemp.estfavoris(),null
                     );

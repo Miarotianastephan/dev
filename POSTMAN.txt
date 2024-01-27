@@ -13,7 +13,7 @@ http://localhost:3000/api/usermir/ajoutinfocar
 
 
 -------------------------------------------creer compte solde
-http://localhost:3000/api/mir/creercompte?iduser=1
+http://localhost:3000/api/usermir/creercompte?iduser=1
 
 -------------------------------------------creer annonce
 
@@ -21,30 +21,30 @@ http://localhost:3000/api/usermir/ajoutannonce
 
 
 ----------------voir publication non valide 
-http://localhost:3000/api/mir/getAnnoncesNonValider?nbaffiche=2&numlinebeforefirst=0
+http://localhost:3000/api/adminmir/getAnnoncesNonValider?nbaffiche=2&numlinebeforefirst=0
 
 ----------------valider l'annonce
-http://localhost:3000/api/mir/validerAnnonce?idadmin=1&idannonce=4
+http://localhost:3000/api/adminmir/validerAnnonce?idadmin=1&idannonce=4
 
 ----------------refuser l'annonce
 
 ----------------Liste annonce
-http://localhost:3000/api/mir/getPubAnnoces?iduser=2&nbaffiche=4&numlinebeforefirst=0
+http://localhost:3000/api/usermir/getPubAnnoces?iduser=2&nbaffiche=4&numlinebeforefirst=0
 
 ----------------Liste mes annonces 
-http://localhost:3000/api/mir/getMesAnnoces?iduser=1&nbaffiche=4&numlinebeforefirst=0
+http://localhost:3000/api/usermir/getMesAnnoces?iduser=1&nbaffiche=4&numlinebeforefirst=0
 
 ----------------to favoris
-http://localhost:3000/api/mir/toFavoris?iduser=2&idannonce=4
+http://localhost:3000/api/usermir/toFavoris?iduser=2&idannonce=4
 
 ----------------crediter compte :
-http://localhost:3000/api/mir/creditercompte?iduser=1&code=10000021
+http://localhost:3000/api/usermir/creditercompte?iduser=1&code=10000021
 
 ----------------changer status 
-http://localhost:3000/api/mir/changerStatusAnnonce?iduser=1&idannonce=4&datevente=2024-01-13
+http://localhost:3000/api/usermir/changerStatusAnnonce?iduser=1&idannonce=4&datevente=2024-01-13
 
 ------------------recherche sur NonValider
-http://localhost:3000/api/mir/searchOnNonValider
+http://localhost:3000/api/adminmir/searchOnNonValider
 {
 "iduser":1,
 "nbaffiche":4,
@@ -59,7 +59,7 @@ http://localhost:3000/api/mir/searchOnNonValider
 "idcategories":[1,2]
 }
 ------------------recherche sur PubAnnonce
-http://localhost:3000/api/mir/searchOnPubAnnonce
+http://localhost:3000/api/usermir/searchOnPubAnnonce
 {
 "iduser":1,
 "nbaffiche":4,
@@ -74,7 +74,7 @@ http://localhost:3000/api/mir/searchOnPubAnnonce
 "idcategories":[1,2]
 }
 ------------------recherche sur MesAnnonces
-http://localhost:3000/api/mir/searchOnMesAnnonces
+http://localhost:3000/api/usermir/searchOnMesAnnonces
 {
 "iduser":1,
 "nbaffiche":4,
@@ -88,3 +88,6 @@ http://localhost:3000/api/mir/searchOnMesAnnonces
 "prix2":100000000,
 "idcategories":[1,2]
 }
+
+-----changement regle de taux 
+http://localhost:3000/api/adminmir/changetauxcommision?tauxpourcent=0.5

@@ -17,6 +17,7 @@ import com.dev.models.*;
 import com.dev.service.AnnonceMiSer;
 import com.dev.service.AnnoncedetailMi_vSer;
 import com.dev.service.AnnoncefavorisMiSer;
+import com.dev.service.RegletauxMiSer;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -29,6 +30,8 @@ public class AdminMiController {
     private AnnoncedetailMi_vSer annoncedetailMi_vSer;
     @Autowired
     private AnnoncefavorisMiSer annoncefavorisMiSer;
+    @Autowired
+    private RegletauxMiSer regletauxMiSer;
 
     @GetMapping(path = "/hello" , produces = "application/json")
     public String getHello(){
@@ -139,7 +142,30 @@ public class AdminMiController {
         }catch (Exception e){
             e.printStackTrace();
             response.put("status",500);
-            response.put("message",e.getMessage());
+            response.put("message","error");
+            response.put("cause",e.getMessage());
+        }
+        return response;
+    }
+
+    //-------------------------------------------------------------------------
+    //mety
+    @GetMapping("/changetauxcommision")
+    public Hashtable <String,Object> changetauxcommision( @RequestParam float tauxpourcent) {
+        Hashtable <String,Object> response=new Hashtable<>(); 
+        try{
+            regletauxMiSer.modifeOrCreateIfNotExist(tauxpourcent);
+            response.put("status",200);
+            response.put("message","succes");
+        }catch(ExceptionCar ec){
+            ec.printStackTrace();
+            response.put("status",500);
+            response.put("message",ec.getMessage());
+        }catch (Exception e){
+            e.printStackTrace();
+            response.put("status",500);
+            response.put("message","error");
+            response.put("cause",e.getMessage());
         }
         return response;
     }

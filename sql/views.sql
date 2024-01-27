@@ -5,7 +5,7 @@ create or replace view annoncedetail_v as
    select a.idannonce,
          a.prixvente,a.descriptions,a.statusvente,a.etat,a.dateannonce,
          a.idlieu,l.nomlieu,
-         a.idvoitureinfo,vi.nomvoiture,vi.nombreplace,vi.kilometrage,md.transmission,t.nomtransmission,md.vitesse,
+         a.idvoitureinfo,vi.nomvoiture,vi.nombreplace,vi.kilometrage,md.idtransmission,t.nomtransmission,md.vitesse,
          vi.iduser,u.nomuser,u.prenomuser,
          md.idcarburant,cb.nomcarburant,
          md.idmarque,mq.nommarque,
@@ -23,9 +23,9 @@ create or replace view annoncedetail_v as
          join models as md on md.idmodel=vi.idmodel
          join carburant as cb on cb.idcarburant=md.idcarburant
          join marque as mq on mq.idmarque=md.idmarque
-         join transmission as t on t.idtransmission=md.transmission
-         join categorievoiture as cv on cv.idvoitureinfo=vi.idvoitureinfo
-         join categorie as ct on ct.idcategorie=cv.idcategorie
+         join transmission as t on t.idtransmission=md.idtransmission
+         join modelcategorie as mc on mc.idmodel=vi.idmodel
+         join categorie as ct on ct.idcategorie=mc.idcategorie
          left join annoncephoto as aph on aph.idannonce=a.idannonce
          left join vendu as v on v.idannonce=a.idannonce;
 

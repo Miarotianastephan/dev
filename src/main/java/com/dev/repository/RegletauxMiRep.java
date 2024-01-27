@@ -11,4 +11,6 @@ public interface RegletauxMiRep extends JpaRepository<RegletauxMi, Integer> {
     // ---select * from Regletaux where iduser='' and etats=0;-->throw new ExceptionCar("session plus valide");
     @Query(value = "select tauxpourcent from regletaux where coderegle=\'C000\' " , nativeQuery = true )
     List <Double> getTauxCommision() ;
+    @Query(value = "select * from regletaux where coderegle=\'C000\' " , nativeQuery = true )
+    List <RegletauxMi> getRegletaux_Commision() ;
 }
