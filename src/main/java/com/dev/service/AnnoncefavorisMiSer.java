@@ -40,26 +40,6 @@ public class AnnoncefavorisMiSer {
     //     }
     //     return convertedFile;
     // }
-    public void enregistrer( MultipartFile file,String pathForSave)throws Exception{
-        // Vérifiez si le fichier est vide
-        if (file.isEmpty()) {
-           throw new ExceptionCar("Le fichier est vide.");
-        }
-        try {
-            // Obtenez le chemin du répertoire où vous souhaitez enregistrer le fichier
-            String uploadDir =pathForSave;
-            String fileName = file.getOriginalFilename();
-            String filePath = uploadDir + File.separator + fileName;
-            // Créez le fichier dans le répertoire local
-            File dest = new File(filePath);
-            file.transferTo(dest);
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new ExceptionCar("Erreur lors de l'enregistrement du fichier.");
-        }catch(Exception e){
-            throw e;
-        }
-    }
     public List<AnnoncefavorisMi> getAll() {
         return annonceRepository.findAll();
     }
